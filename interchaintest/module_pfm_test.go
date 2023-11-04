@@ -53,19 +53,19 @@ func TestPacketForwardMiddlewareRouter(t *testing.T) {
 	// base config which all networks will use as defaults.
 	baseCfg := ibc.ChainConfig{
 		Type:                "cosmos",
-		Name:                "juno",
+		Name:                "furya",
 		ChainID:             "", // change this for each
-		Images:              []ibc.DockerImage{JunoImage},
-		Bin:                 "junod",
-		Bech32Prefix:        "juno",
-		Denom:               "ujuno",
+		Images:              []ibc.DockerImage{FuryaImage},
+		Bin:                 "furyad",
+		Bech32Prefix:        "furya",
+		Denom:               "ufury",
 		CoinType:            "118",
-		GasPrices:           "0ujuno",
+		GasPrices:           "0ufury",
 		GasAdjustment:       2.0,
 		TrustingPeriod:      "112h",
 		NoHostMount:         false,
 		ConfigFileOverrides: nil,
-		EncodingConfig:      junoEncoding(),
+		EncodingConfig:      furyaEncoding(),
 		ModifyGenesis:       cosmos.ModifyGenesis(defaultGenesisKV),
 	}
 
@@ -82,31 +82,31 @@ func TestPacketForwardMiddlewareRouter(t *testing.T) {
 	baseCfg.ChainID = chainID_D
 	configD := baseCfg
 
-	// Create chain factory with multiple Juno individual networks.
+	// Create chain factory with multiple Furya individual networks.
 	numVals := 1
 	numFullNodes := 0
 
 	cf := interchaintest.NewBuiltinChainFactory(zaptest.NewLogger(t), []*interchaintest.ChainSpec{
 		{
-			Name:          "juno",
+			Name:          "furya",
 			ChainConfig:   configA,
 			NumValidators: &numVals,
 			NumFullNodes:  &numFullNodes,
 		},
 		{
-			Name:          "juno",
+			Name:          "furya",
 			ChainConfig:   configB,
 			NumValidators: &numVals,
 			NumFullNodes:  &numFullNodes,
 		},
 		{
-			Name:          "juno",
+			Name:          "furya",
 			ChainConfig:   configC,
 			NumValidators: &numVals,
 			NumFullNodes:  &numFullNodes,
 		},
 		{
-			Name:          "juno",
+			Name:          "furya",
 			ChainConfig:   configD,
 			NumValidators: &numVals,
 			NumFullNodes:  &numFullNodes,

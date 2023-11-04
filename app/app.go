@@ -63,30 +63,30 @@ import (
 	upgradeclient "github.com/cosmos/cosmos-sdk/x/upgrade/client"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/CosmosContracts/juno/v18/app/keepers"
-	"github.com/CosmosContracts/juno/v18/app/openapiconsole"
-	upgrades "github.com/CosmosContracts/juno/v18/app/upgrades"
-	v10 "github.com/CosmosContracts/juno/v18/app/upgrades/v10"
-	v11 "github.com/CosmosContracts/juno/v18/app/upgrades/v11"
-	v12 "github.com/CosmosContracts/juno/v18/app/upgrades/v12"
-	v13 "github.com/CosmosContracts/juno/v18/app/upgrades/v13"
-	v14 "github.com/CosmosContracts/juno/v18/app/upgrades/v14"
-	v15 "github.com/CosmosContracts/juno/v18/app/upgrades/v15"
-	v16 "github.com/CosmosContracts/juno/v18/app/upgrades/v16"
-	v17 "github.com/CosmosContracts/juno/v18/app/upgrades/v17"
-	v18 "github.com/CosmosContracts/juno/v18/app/upgrades/v18"
-	"github.com/CosmosContracts/juno/v18/docs"
+	"github.com/CosmosContracts/furya/v18/app/keepers"
+	"github.com/CosmosContracts/furya/v18/app/openapiconsole"
+	upgrades "github.com/CosmosContracts/furya/v18/app/upgrades"
+	v10 "github.com/CosmosContracts/furya/v18/app/upgrades/v10"
+	v11 "github.com/CosmosContracts/furya/v18/app/upgrades/v11"
+	v12 "github.com/CosmosContracts/furya/v18/app/upgrades/v12"
+	v13 "github.com/CosmosContracts/furya/v18/app/upgrades/v13"
+	v14 "github.com/CosmosContracts/furya/v18/app/upgrades/v14"
+	v15 "github.com/CosmosContracts/furya/v18/app/upgrades/v15"
+	v16 "github.com/CosmosContracts/furya/v18/app/upgrades/v16"
+	v17 "github.com/CosmosContracts/furya/v18/app/upgrades/v17"
+	v18 "github.com/CosmosContracts/furya/v18/app/upgrades/v18"
+	"github.com/CosmosContracts/furya/v18/docs"
 )
 
 const (
-	AccountAddressPrefix = "juno"
-	Name                 = "juno"
+	AccountAddressPrefix = "furya"
+	Name                 = "furya"
 )
 
 // We pull these out so we can set them with LDFLAGS in the Makefile
 var (
-	NodeDir      = ".juno"
-	Bech32Prefix = "juno"
+	NodeDir      = ".furya"
+	Bech32Prefix = "furya"
 
 	// If EnabledSpecificProposals is "", and this is "true", then enable all x/wasm proposals.
 	// If EnabledSpecificProposals is "", and this is not "true", then disable all x/wasm proposals.
@@ -113,7 +113,7 @@ var (
 // These are the ones we will want to use in the code, based on
 // any overrides above
 var (
-	// DefaultNodeHome default home directories for Juno
+	// DefaultNodeHome default home directories for Furya
 	DefaultNodeHome = os.ExpandEnv("$HOME/") + NodeDir
 
 	// Bech32PrefixAccAddr defines the Bech32 prefix of an account's address
@@ -167,7 +167,7 @@ func GetWasmOpts(appOpts servertypes.AppOptions) []wasmkeeper.Option {
 		wasmOpts = append(wasmOpts, wasmkeeper.WithVMCacheMetrics(prometheus.DefaultRegisterer))
 	}
 
-	wasmOpts = append(wasmOpts, wasmkeeper.WithGasRegister(NewJunoWasmGasRegister()))
+	wasmOpts = append(wasmOpts, wasmkeeper.WithGasRegister(NewFuryaWasmGasRegister()))
 
 	return wasmOpts
 }
@@ -217,7 +217,7 @@ type App struct {
 	checkTxHandler pobabci.CheckTx
 }
 
-// New returns a reference to an initialized Juno.
+// New returns a reference to an initialized Furya.
 func New(
 	logger log.Logger,
 	db dbm.DB,
@@ -544,7 +544,7 @@ func (app *App) LegacyAmino() *codec.LegacyAmino {
 	return app.legacyAmino
 }
 
-// AppCodec returns Juno's app codec.
+// AppCodec returns Furya's app codec.
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
@@ -552,7 +552,7 @@ func (app *App) AppCodec() codec.Codec {
 	return app.appCodec
 }
 
-// InterfaceRegistry returns Juno's InterfaceRegistry
+// InterfaceRegistry returns Furya's InterfaceRegistry
 func (app *App) InterfaceRegistry() types.InterfaceRegistry {
 	return app.interfaceRegistry
 }
@@ -652,9 +652,9 @@ func (app *App) ChainID() string {
 }
 
 func (app *App) GetChainBondDenom() string {
-	d := "ujuno"
+	d := "ufury"
 	if strings.HasPrefix(app.ChainID(), "uni-") {
-		d = "ujunox"
+		d = "ufuryx"
 	}
 	return d
 }

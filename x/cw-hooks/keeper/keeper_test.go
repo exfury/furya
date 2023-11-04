@@ -19,14 +19,14 @@ import (
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
-	"github.com/CosmosContracts/juno/v18/app"
-	"github.com/CosmosContracts/juno/v18/x/cw-hooks/keeper"
-	"github.com/CosmosContracts/juno/v18/x/cw-hooks/types"
+	"github.com/CosmosContracts/furya/v18/app"
+	"github.com/CosmosContracts/furya/v18/x/cw-hooks/keeper"
+	"github.com/CosmosContracts/furya/v18/x/cw-hooks/types"
 )
 
 var _ = embed.FS{}
 
-//go:embed contract/juno_staking_hooks_example.wasm
+//go:embed contract/furya_staking_hooks_example.wasm
 var wasmContract []byte
 
 type IntegrationTestSuite struct {

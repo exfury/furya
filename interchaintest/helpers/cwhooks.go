@@ -47,7 +47,7 @@ func GetCwStakingHookLastDelegationChange(t *testing.T, ctx context.Context, cha
 // helpers
 func cwHooksCmd(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, user ibc.Wallet, command, module, contractAddr string) {
 	cmd := []string{
-		"junod", "tx", "cw-hooks", command, module, contractAddr,
+		"furyad", "tx", "cw-hooks", command, module, contractAddr,
 		"--node", chain.GetRPCAddress(),
 		"--home", chain.HomeDir(),
 		"--chain-id", chain.Config().ChainID,
@@ -69,7 +69,7 @@ func cwHooksCmd(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, us
 
 func getContracts(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, subCmd string) []string {
 	cmd := []string{
-		"junod", "query", "cw-hooks", subCmd,
+		"furyad", "query", "cw-hooks", subCmd,
 		"--node", chain.GetRPCAddress(),
 		"--chain-id", chain.Config().ChainID,
 		"--output", "json",

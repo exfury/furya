@@ -19,7 +19,7 @@ func GetUserTokenFactoryBalances(t *testing.T, ctx context.Context, chain *cosmo
 }
 
 func GetUnityContractWithdrawalReadyTime(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, contract string) WithdrawalTimestampResponse {
-	// junod query wasm contract-state smart <contract> '{"get_withdrawal_ready_time":{}}' --output json
+	// furyad query wasm contract-state smart <contract> '{"get_withdrawal_ready_time":{}}' --output json
 	var res WithdrawalTimestampResponse
 	err := chain.QueryContract(ctx, contract, QueryMsg{GetWithdrawalReadyTime: &struct{}{}}, &res)
 	require.NoError(t, err)
@@ -75,7 +75,7 @@ type Vals struct {
 func GetValidators(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain) Vals {
 	var res Vals
 
-	cmd := []string{"junod", "query", "staking", "validators",
+	cmd := []string{"furyad", "query", "staking", "validators",
 		"--node", chain.GetRPCAddress(),
 		"--chain-id", chain.Config().ChainID,
 		"--output", "json",
@@ -104,7 +104,7 @@ type FeePayUses struct {
 func GetFeePayUses(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, contract, wallet string) FeePayUses {
 	var res FeePayUses
 
-	cmd := []string{"junod", "query", "feepay", "uses", contract, wallet,
+	cmd := []string{"furyad", "query", "feepay", "uses", contract, wallet,
 		"--node", chain.GetRPCAddress(),
 		"--chain-id", chain.Config().ChainID,
 		"--output", "json",
@@ -137,7 +137,7 @@ type FeePayContracts struct {
 func GetFeePayContracts(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain) FeePayContracts {
 	var res FeePayContracts
 
-	cmd := []string{"junod", "query", "feepay", "contracts",
+	cmd := []string{"furyad", "query", "feepay", "contracts",
 		"--node", chain.GetRPCAddress(),
 		"--chain-id", chain.Config().ChainID,
 		"--output", "json",
@@ -166,7 +166,7 @@ type FeePayContract struct {
 func GetFeePayContract(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, contract string) FeePayContract {
 	var res FeePayContract
 
-	cmd := []string{"junod", "query", "feepay", "contract", contract,
+	cmd := []string{"furyad", "query", "feepay", "contract", contract,
 		"--node", chain.GetRPCAddress(),
 		"--chain-id", chain.Config().ChainID,
 		"--output", "json",

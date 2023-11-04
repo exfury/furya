@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  title: Juno network
+  title: Furya network
   version: v0
 consumes:
   - application/json
@@ -11972,7 +11972,7 @@ paths:
           type: string
       tags:
         - gRPC Gateway API
-  /juno/feeshare/v1/fee_shares:
+  /furya/feeshare/v1/fee_shares:
     get:
       summary: FeeShares retrieves all registered FeeShares
       operationId: FeeShares_ARVUM
@@ -12118,7 +12118,7 @@ paths:
           type: boolean
       tags:
         - gRPC Gateway API
-  /juno/feeshare/v1/fee_shares/{contract_address}:
+  /furya/feeshare/v1/fee_shares/{contract_address}:
     get:
       summary: FeeShare retrieves a registered FeeShare for a given contract address
       operationId: FeeShare_0EHGG
@@ -12190,7 +12190,7 @@ paths:
           type: string
       tags:
         - gRPC Gateway API
-  /juno/feeshare/v1/fee_shares/{deployer_address}:
+  /furya/feeshare/v1/fee_shares/{deployer_address}:
     get:
       summary: |-
         DeployerFeeShares retrieves all FeeShares that a given deployer has
@@ -12318,7 +12318,7 @@ paths:
           type: boolean
       tags:
         - gRPC Gateway API
-  /juno/feeshare/v1/fee_shares/{withdrawer_address}:
+  /furya/feeshare/v1/fee_shares/{withdrawer_address}:
     get:
       summary: |-
         WithdrawerFeeShares retrieves all FeeShares with a given withdrawer
@@ -12446,7 +12446,7 @@ paths:
           type: boolean
       tags:
         - gRPC Gateway API
-  /juno/feeshare/v1/params:
+  /furya/feeshare/v1/params:
     get:
       summary: Params retrieves the FeeShare module params
       operationId: Params_4OI6Q
@@ -26417,7 +26417,7 @@ definitions:
       WeightedVoteOption defines a unit of vote for vote split.
 
       Since: cosmos-sdk 0.43
-  juno.feeshare.v1.FeeShare:
+  furya.feeshare.v1.FeeShare:
     type: object
     properties:
       contract_address:
@@ -26444,7 +26444,7 @@ definitions:
       for
 
       the owner of a given smart contract
-  juno.feeshare.v1.Params:
+  furya.feeshare.v1.Params:
     type: object
     properties:
       enable_fee_share:
@@ -26470,7 +26470,7 @@ definitions:
 
           If this list is empty, all denoms are allowed.
     title: Params defines the feeshare module params
-  juno.feeshare.v1.QueryDeployerFeeSharesResponse:
+  furya.feeshare.v1.QueryDeployerFeeSharesResponse:
     type: object
     properties:
       contract_addresses:
@@ -26501,7 +26501,7 @@ definitions:
     description: |-
       QueryDeployerFeeSharesResponse is the response type for the
       Query/DeployerFeeShares RPC method.
-  juno.feeshare.v1.QueryFeeShareResponse:
+  furya.feeshare.v1.QueryFeeShareResponse:
     type: object
     properties:
       feeshare:
@@ -26534,7 +26534,7 @@ definitions:
     description: >-
       QueryFeeShareResponse is the response type for the Query/FeeShare RPC
       method.
-  juno.feeshare.v1.QueryFeeSharesResponse:
+  furya.feeshare.v1.QueryFeeSharesResponse:
     type: object
     properties:
       feeshare:
@@ -26590,7 +26590,7 @@ definitions:
     description: |-
       QueryFeeSharesResponse is the response type for the Query/FeeShares RPC
       method.
-  juno.feeshare.v1.QueryParamsResponse:
+  furya.feeshare.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -26622,7 +26622,7 @@ definitions:
 
               If this list is empty, all denoms are allowed.
     description: QueryParamsResponse is the response type for the Query/Params RPC method.
-  juno.feeshare.v1.QueryWithdrawerFeeSharesResponse:
+  furya.feeshare.v1.QueryWithdrawerFeeSharesResponse:
     type: object
     properties:
       contract_addresses:
@@ -27289,7 +27289,7 @@ definitions:
     description: >-
       QueryGrantsResponse is the response type for the Query/Authorizations RPC
       method.
-  juno.mint.Params:
+  furya.mint.Params:
     type: object
     properties:
       mint_denom:
@@ -27300,7 +27300,7 @@ definitions:
         format: uint64
         title: expected blocks per year
     description: Params holds parameters for the mint module.
-  juno.mint.QueryAnnualProvisionsResponse:
+  furya.mint.QueryAnnualProvisionsResponse:
     type: object
     properties:
       annual_provisions:
@@ -27310,7 +27310,7 @@ definitions:
     description: |-
       QueryAnnualProvisionsResponse is the response type for the
       Query/AnnualProvisions RPC method.
-  juno.mint.QueryInflationResponse:
+  furya.mint.QueryInflationResponse:
     type: object
     properties:
       inflation:
@@ -27320,7 +27320,7 @@ definitions:
     description: |-
       QueryInflationResponse is the response type for the Query/Inflation RPC
       method.
-  juno.mint.QueryParamsResponse:
+  furya.mint.QueryParamsResponse:
     type: object
     properties:
       params:

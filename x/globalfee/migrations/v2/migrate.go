@@ -6,7 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/juno/v18/x/globalfee/types"
+	"github.com/CosmosContracts/furya/v18/x/globalfee/types"
 )
 
 const (
@@ -27,25 +27,25 @@ func Migrate(
 ) error {
 	var currParams types.Params
 
-	if bondDenom == "ujunox" {
+	if bondDenom == "ufuryx" {
 		// testnet
 		// https://uni-api.reece.sh/gaia/globalfee/v1beta1/minimum_gas_prices
 		currParams = types.Params{
 			MinimumGasPrices: sdk.DecCoins{
 				// 0.003000000000000000uatom
 				sdk.NewDecCoinFromDec("ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9", sdk.NewDecWithPrec(1, 3)),
-				// 0.002500000000000000 ujunox
+				// 0.002500000000000000 ufuryx
 				sdk.NewDecCoinFromDec(bondDenom, sdk.NewDecWithPrec(25, 4)),
 			}.Sort(),
 		}
 	} else {
 		// mainnet
-		// https://juno-api.reece.sh/gaia/globalfee/v1beta1/minimum_gas_prices
+		// https://furya-api.reece.sh/gaia/globalfee/v1beta1/minimum_gas_prices
 		currParams = types.Params{
 			MinimumGasPrices: sdk.DecCoins{
 				// 0.003000000000000000 uatom
 				sdk.NewDecCoinFromDec("ibc/C4CFF46FD6DE35CA4CF4CE031E643C8FDC9BA4B99AE598E9B0ED98FE3A2319F9", sdk.NewDecWithPrec(3, 3)),
-				// 0.075000000000000000 ujuno
+				// 0.075000000000000000 ufury
 				sdk.NewDecCoinFromDec(bondDenom, sdk.NewDecWithPrec(75, 3)),
 			}.Sort(),
 		}

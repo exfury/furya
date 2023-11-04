@@ -9,7 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
-	"github.com/CosmosContracts/juno/v18/x/feepay/types"
+	"github.com/CosmosContracts/furya/v18/x/feepay/types"
 )
 
 // Check if a contract is registered as a fee pay contract
@@ -201,7 +201,7 @@ func (k Keeper) FundContract(ctx sdk.Context, fpc *types.FeePayContract, senderA
 
 	// Ensure the transfer coin was set
 	if transferCoin == (sdk.Coin{}) {
-		return types.ErrInvalidJunoFundAmount.Wrapf("contract must be funded with '%s'", k.bondDenom)
+		return types.ErrInvalidFuryaFundAmount.Wrapf("contract must be funded with '%s'", k.bondDenom)
 	}
 
 	// Transfer from sender to module

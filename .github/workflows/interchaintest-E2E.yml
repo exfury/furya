@@ -15,8 +15,8 @@ permissions:
 
 env:
   GO_VERSION: 1.21.0
-  TAR_PATH: /tmp/juno-docker-image.tar
-  IMAGE_NAME: juno-docker-image
+  TAR_PATH: /tmp/furya-docker-image.tar
+  IMAGE_NAME: furya-docker-image
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -42,7 +42,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          tags: juno:local
+          tags: furya:local
           outputs: type=docker,dest=${{ env.TAR_PATH }}
 
       - name: Upload artifact

@@ -21,7 +21,7 @@ func TestLegacyParamSetPairs(t *testing.T) {
 
 func TestLegacyParamsValidate(t *testing.T) {
 	devShares := sdk.NewDecWithPrec(60, 2)
-	acceptedDenoms := []string{"ujuno"}
+	acceptedDenoms := []string{"ufury"}
 
 	testCases := []struct {
 		name     string

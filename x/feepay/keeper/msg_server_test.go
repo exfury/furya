@@ -7,7 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	// govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-	"github.com/CosmosContracts/juno/v18/x/feepay/types"
+	"github.com/CosmosContracts/furya/v18/x/feepay/types"
 )
 
 func (s *IntegrationTestSuite) TestRegisterFeePayContract() {
@@ -158,7 +158,7 @@ func (s *IntegrationTestSuite) TestUnregisterFeePayContract() {
 func (s *IntegrationTestSuite) TestFundFeePayContract() {
 	_, _, sender := testdata.KeyTestPubAddr()
 	_, _, admin := testdata.KeyTestPubAddr()
-	_ = s.FundAccount(s.ctx, sender, sdk.NewCoins(sdk.NewCoin("stake", sdk.NewInt(1_000_000)), sdk.NewCoin("ujuno", sdk.NewInt(100_000_000))))
+	_ = s.FundAccount(s.ctx, sender, sdk.NewCoins(sdk.NewCoin("stake", sdk.NewInt(1_000_000)), sdk.NewCoin("ufury", sdk.NewInt(100_000_000))))
 	_ = s.FundAccount(s.ctx, admin, sdk.NewCoins(sdk.NewCoin("stake", sdk.NewInt(1_000_000))))
 
 	contract := s.InstantiateContract(sender.String(), "")
@@ -176,14 +176,14 @@ func (s *IntegrationTestSuite) TestFundFeePayContract() {
 			desc:            "Fail - Invalid Contract Address",
 			contractAddress: "Invalid",
 			senderAddress:   sender.String(),
-			amount:          sdk.NewCoins(sdk.NewCoin("ujuno", sdk.NewInt(1_000_000))),
+			amount:          sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(1_000_000))),
 			shouldErr:       true,
 		},
 		{
 			desc:            "Fail - Invalid Sender Address",
 			contractAddress: contract,
 			senderAddress:   "Invalid",
-			amount:          sdk.NewCoins(sdk.NewCoin("ujuno", sdk.NewInt(1_000_000))),
+			amount:          sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(1_000_000))),
 			shouldErr:       true,
 		},
 		{
@@ -197,14 +197,14 @@ func (s *IntegrationTestSuite) TestFundFeePayContract() {
 			desc:            "Fail - Wallet Not Enough Funds",
 			contractAddress: contract,
 			senderAddress:   sender.String(),
-			amount:          sdk.NewCoins(sdk.NewCoin("ujuno", sdk.NewInt(100_000_000_000))),
+			amount:          sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(100_000_000_000))),
 			shouldErr:       true,
 		},
 		{
 			desc:            "Success - Contract Funded",
 			contractAddress: contract,
 			senderAddress:   sender.String(),
-			amount:          sdk.NewCoins(sdk.NewCoin("ujuno", sdk.NewInt(1_000_000))),
+			amount:          sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(1_000_000))),
 			shouldErr:       false,
 		},
 	} {

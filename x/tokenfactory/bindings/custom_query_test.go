@@ -10,15 +10,15 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/juno/v18/app"
-	bindings "github.com/CosmosContracts/juno/v18/x/tokenfactory/bindings/types"
+	"github.com/CosmosContracts/furya/v18/app"
+	bindings "github.com/CosmosContracts/furya/v18/x/tokenfactory/bindings/types"
 )
 
 func TestQueryFullDenom(t *testing.T) {
 	actor := RandomAccountAddress()
-	junoapp, ctx := SetupCustomApp(t, actor)
+	furyaapp, ctx := SetupCustomApp(t, actor)
 
-	reflect := instantiateReflectContract(t, ctx, junoapp, actor)
+	reflect := instantiateReflectContract(t, ctx, furyaapp, actor)
 	require.NotEmpty(t, reflect)
 
 	// query full denom
@@ -29,7 +29,7 @@ func TestQueryFullDenom(t *testing.T) {
 		},
 	}
 	resp := bindings.FullDenomResponse{}
-	queryCustom(t, ctx, junoapp, reflect, query, &resp)
+	queryCustom(t, ctx, furyaapp, reflect, query, &resp)
 
 	expected := fmt.Sprintf("factory/%s/ustart", reflect.String())
 	require.EqualValues(t, expected, resp.Denom)
@@ -47,7 +47,7 @@ type ChainResponse struct {
 	Data []byte `json:"data"`
 }
 
-func queryCustom(t *testing.T, ctx sdk.Context, junoapp *app.App, contract sdk.AccAddress, request bindings.TokenFactoryQuery, response interface{}) {
+func queryCustom(t *testing.T, ctx sdk.Context, furyaapp *app.App, contract sdk.AccAddress, request bindings.TokenFactoryQuery, response interface{}) {
 	msgBz, err := json.Marshal(request)
 	require.NoError(t, err)
 	fmt.Println("queryCustom1", string(msgBz))
@@ -61,7 +61,7 @@ func queryCustom(t *testing.T, ctx sdk.Context, junoapp *app.App, contract sdk.A
 	require.NoError(t, err)
 	fmt.Println("queryCustom2", string(queryBz))
 
-	resBz, err := junoapp.AppKeepers.WasmKeeper.QuerySmart(ctx, contract, queryBz)
+	resBz, err := furyaapp.AppKeepers.WasmKeeper.QuerySmart(ctx, contract, queryBz)
 	require.NoError(t, err)
 	var resp ChainResponse
 	err = json.Unmarshal(resBz, &resp)

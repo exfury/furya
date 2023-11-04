@@ -10,15 +10,15 @@ import (
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
 	"github.com/stretchr/testify/require"
 
-	helpers "github.com/CosmosContracts/juno/tests/interchaintest/helpers"
+	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
 )
 
-// TestJunoFeePay
-func TestJunoFeePay(t *testing.T) {
+// TestFuryaFeePay
+func TestFuryaFeePay(t *testing.T) {
 	t.Parallel()
 
-	cfg := junoConfig
-	cfg.GasPrices = "0.0025ujuno"
+	cfg := furyaConfig
+	cfg.GasPrices = "0.0025ufury"
 
 	// 0.002500000000000000
 	coin := sdk.NewDecCoinFromDec(cfg.Denom, sdk.NewDecWithPrec(25, 4))
@@ -39,22 +39,22 @@ func TestJunoFeePay(t *testing.T) {
 	ic, ctx, _, _ := BuildInitialChain(t, chains)
 
 	// Chains
-	juno := chains[0].(*cosmos.CosmosChain)
+	furya := chains[0].(*cosmos.CosmosChain)
 
-	nativeDenom := juno.Config().Denom
+	nativeDenom := furya.Config().Denom
 
 	// Users
-	users := interchaintest.GetAndFundTestUsers(t, ctx, "default", int64(10_000_000), juno, juno)
+	users := interchaintest.GetAndFundTestUsers(t, ctx, "default", int64(10_000_000), furya, furya)
 	admin := users[0]
 	user := users[1]
 
 	// Upload & init contract payment to another address
-	codeId, err := juno.StoreContract(ctx, admin.KeyName(), "contracts/cw_template.wasm", "--fees", "50000ujuno")
+	codeId, err := furya.StoreContract(ctx, admin.KeyName(), "contracts/cw_template.wasm", "--fees", "50000ufury")
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	contractAddr, err := juno.InstantiateContract(ctx, admin.KeyName(), codeId, `{"count":0}`, true)
+	contractAddr, err := furya.InstantiateContract(ctx, admin.KeyName(), codeId, `{"count":0}`, true)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -62,39 +62,39 @@ func TestJunoFeePay(t *testing.T) {
 	// Register contract for 0 fee usage (x amount of times)
 	limit := 5
 	balance := 1_000_000
-	helpers.RegisterFeePay(t, ctx, juno, admin, contractAddr, limit)
-	helpers.FundFeePayContract(t, ctx, juno, admin, contractAddr, strconv.Itoa(balance)+nativeDenom)
+	helpers.RegisterFeePay(t, ctx, furya, admin, contractAddr, limit)
+	helpers.FundFeePayContract(t, ctx, furya, admin, contractAddr, strconv.Itoa(balance)+nativeDenom)
 
-	beforeContract := helpers.GetFeePayContract(t, ctx, juno, contractAddr)
+	beforeContract := helpers.GetFeePayContract(t, ctx, furya, contractAddr)
 	t.Log("beforeContract", beforeContract)
 	require.Equal(t, beforeContract.FeePayContract.Balance, strconv.Itoa(balance))
 	require.Equal(t, beforeContract.FeePayContract.WalletLimit, strconv.Itoa(int(limit)))
 
 	// execute against it from another account with enough fees (standard Tx)
-	txHash, err := juno.ExecuteContract(ctx, user.KeyName(), contractAddr, `{"increment":{}}`, "--fees", "500"+nativeDenom)
+	txHash, err := furya.ExecuteContract(ctx, user.KeyName(), contractAddr, `{"increment":{}}`, "--fees", "500"+nativeDenom)
 	require.NoError(t, err)
 	fmt.Println("txHash", txHash)
 
-	beforeBal, err := juno.GetBalance(ctx, user.FormattedAddress(), nativeDenom)
+	beforeBal, err := furya.GetBalance(ctx, user.FormattedAddress(), nativeDenom)
 	require.NoError(t, err)
 
 	// execute against it from another account and have the dev pay it
-	txHash, err = juno.ExecuteContract(ctx, user.KeyName(), contractAddr, `{"increment":{}}`, "--fees", "0"+nativeDenom)
+	txHash, err = furya.ExecuteContract(ctx, user.KeyName(), contractAddr, `{"increment":{}}`, "--fees", "0"+nativeDenom)
 	require.NoError(t, err)
 	fmt.Println("txHash", txHash)
 
-	afterBal, err := juno.GetBalance(ctx, user.FormattedAddress(), nativeDenom)
+	afterBal, err := furya.GetBalance(ctx, user.FormattedAddress(), nativeDenom)
 	require.NoError(t, err)
 
 	// validate users balance did not change
 	require.Equal(t, beforeBal, afterBal)
 
 	// validate the contract balance went down
-	afterContract := helpers.GetFeePayContract(t, ctx, juno, contractAddr)
+	afterContract := helpers.GetFeePayContract(t, ctx, furya, contractAddr)
 	t.Log("afterContract", afterContract)
 	require.Equal(t, afterContract.FeePayContract.Balance, strconv.Itoa(balance-500))
 
-	uses := helpers.GetFeePayUses(t, ctx, juno, contractAddr, user.FormattedAddress())
+	uses := helpers.GetFeePayUses(t, ctx, furya, contractAddr, user.FormattedAddress())
 	t.Log("uses", uses)
 	require.Equal(t, uses.Uses, "1")
 

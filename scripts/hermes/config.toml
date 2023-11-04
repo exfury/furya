@@ -66,13 +66,13 @@ rpc_addr = 'http://localhost:26657'
 grpc_addr = 'http://localhost:9090'
 websocket_addr = 'ws://localhost:26657/websocket'
 rpc_timeout = '1s'
-account_prefix = 'juno'
+account_prefix = 'furya'
 key_name = 'default'
 address_type = { derivation = 'cosmos' }
 store_prefix = 'ibc'
 default_gas = 500000
 max_gas = 40000000
-gas_price = { price = 0.01, denom = 'ujuno' }
+gas_price = { price = 0.01, denom = 'ufury' }
 gas_multiplier = 1.5
 max_msg_num = 30
 max_tx_size = 2097152
@@ -88,13 +88,13 @@ rpc_addr = 'http://localhost:36657'
 grpc_addr = 'http://localhost:8090'
 websocket_addr = 'ws://localhost:36657/websocket'
 rpc_timeout = '1s'
-account_prefix = 'juno'
+account_prefix = 'furya'
 key_name = 'default'
 address_type = { derivation = 'cosmos' }
 store_prefix = 'ibc'
 default_gas = 500000
 max_gas = 40000000
-gas_price = { price = 0.01, denom = 'ujuno' }
+gas_price = { price = 0.01, denom = 'ufury' }
 gas_multiplier = 1.1
 max_msg_num = 30
 max_tx_size = 2097152
@@ -106,18 +106,18 @@ memo_prefix = ''
 
 # Mainnet
 # [[chains]]
-# id = 'juno-1'
-# rpc_addr = 'https://juno-rpc.reece.sh:443'
+# id = 'furya-1'
+# rpc_addr = 'https://furya-rpc.reece.sh:443'
 # grpc_addr = 'http://15.204.143.232:9090'
 # websocket_addr = 'ws://15.204.143.232:26657/websocket'
 # rpc_timeout = '1s'
-# account_prefix = 'juno'
+# account_prefix = 'furya'
 # key_name = 'default'
 # address_type = { derivation = 'cosmos' }
 # store_prefix = 'ibc'
 # default_gas = 500000
 # max_gas = 4000000
-# gas_price = { price = 0.003, denom = 'ujuno' }
+# gas_price = { price = 0.003, denom = 'ufury' }
 # gas_multiplier = 1.1
 # max_msg_num = 30
 # max_tx_size = 2097152

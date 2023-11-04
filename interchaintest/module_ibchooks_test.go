@@ -16,34 +16,34 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 
-	helpers "github.com/CosmosContracts/juno/tests/interchaintest/helpers"
+	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
 )
 
-// TestJunoIBCHooks ensures the ibc-hooks middleware from osmosis works.
-func TestJunoIBCHooks(t *testing.T) {
+// TestFuryaIBCHooks ensures the ibc-hooks middleware from osmosis works.
+func TestFuryaIBCHooks(t *testing.T) {
 	if testing.Short() {
 		t.Skip()
 	}
 
 	t.Parallel()
 
-	// Create chain factory with Juno and juno2
+	// Create chain factory with Furya and furya2
 	numVals := 1
 	numFullNodes := 0
 
-	cfg2 := junoConfig.Clone()
-	cfg2.Name = "juno-counterparty"
+	cfg2 := furyaConfig.Clone()
+	cfg2.Name = "furya-counterparty"
 	cfg2.ChainID = "counterparty-2"
 
 	cf := interchaintest.NewBuiltinChainFactory(zaptest.NewLogger(t), []*interchaintest.ChainSpec{
 		{
-			Name:          "juno",
-			ChainConfig:   junoConfig,
+			Name:          "furya",
+			ChainConfig:   furyaConfig,
 			NumValidators: &numVals,
 			NumFullNodes:  &numFullNodes,
 		},
 		{
-			Name:          "juno",
+			Name:          "furya",
 			ChainConfig:   cfg2,
 			NumValidators: &numVals,
 			NumFullNodes:  &numFullNodes,
@@ -60,7 +60,7 @@ func TestJunoIBCHooks(t *testing.T) {
 
 	client, network := interchaintest.DockerSetup(t)
 
-	juno, juno2 := chains[0].(*cosmos.CosmosChain), chains[1].(*cosmos.CosmosChain)
+	furya, furya2 := chains[0].(*cosmos.CosmosChain), chains[1].(*cosmos.CosmosChain)
 
 	relayerType, relayerName := ibc.CosmosRly, "relay"
 
@@ -75,12 +75,12 @@ func TestJunoIBCHooks(t *testing.T) {
 	r := rf.Build(t, client, network)
 
 	ic := interchaintest.NewInterchain().
-		AddChain(juno).
-		AddChain(juno2).
+		AddChain(furya).
+		AddChain(furya2).
 		AddRelayer(r, relayerName).
 		AddLink(interchaintest.InterchainLink{
-			Chain1:  juno,
-			Chain2:  juno2,
+			Chain1:  furya,
+			Chain2:  furya2,
 			Relayer: r,
 			Path:    path,
 		})
@@ -102,19 +102,19 @@ func TestJunoIBCHooks(t *testing.T) {
 	})
 
 	// Create some user accounts on both chains
-	users := interchaintest.GetAndFundTestUsers(t, ctx, t.Name(), genesisWalletAmount, juno, juno2)
+	users := interchaintest.GetAndFundTestUsers(t, ctx, t.Name(), genesisWalletAmount, furya, furya2)
 
 	// Wait a few blocks for relayer to start and for user accounts to be created
-	err = testutil.WaitForBlocks(ctx, 5, juno, juno2)
+	err = testutil.WaitForBlocks(ctx, 5, furya, furya2)
 	require.NoError(t, err)
 
 	// Get our Bech32 encoded user addresses
-	junoUser, juno2User := users[0], users[1]
+	furyaUser, furya2User := users[0], users[1]
 
-	junoUserAddr := junoUser.FormattedAddress()
-	// juno2UserAddr := juno2User.FormattedAddress()
+	furyaUserAddr := furyaUser.FormattedAddress()
+	// furya2UserAddr := furya2User.FormattedAddress()
 
-	channel, err := ibc.GetTransferChannel(ctx, r, eRep, juno.Config().ChainID, juno2.Config().ChainID)
+	channel, err := ibc.GetTransferChannel(ctx, r, eRep, furya.Config().ChainID, furya2.Config().ChainID)
 	require.NoError(t, err)
 
 	err = r.StartRelayer(ctx, eRep, path)
@@ -129,12 +129,12 @@ func TestJunoIBCHooks(t *testing.T) {
 		},
 	)
 
-	_, contractAddr := helpers.SetupContract(t, ctx, juno2, juno2User.KeyName(), "contracts/ibchooks_counter.wasm", `{"count":0}`)
+	_, contractAddr := helpers.SetupContract(t, ctx, furya2, furya2User.KeyName(), "contracts/ibchooks_counter.wasm", `{"count":0}`)
 
 	// do an ibc transfer through the memo to the other chain.
 	transfer := ibc.WalletAmount{
 		Address: contractAddr,
-		Denom:   juno.Config().Denom,
+		Denom:   furya.Config().Denom,
 		Amount:  math.NewInt(1),
 	}
 
@@ -143,29 +143,29 @@ func TestJunoIBCHooks(t *testing.T) {
 	}
 
 	// Initial transfer. Account is created by the wasm execute is not so we must do this twice to properly set up
-	transferTx, err := juno.SendIBCTransfer(ctx, channel.ChannelID, junoUser.KeyName(), transfer, memo)
+	transferTx, err := furya.SendIBCTransfer(ctx, channel.ChannelID, furyaUser.KeyName(), transfer, memo)
 	require.NoError(t, err)
-	junoHeight, err := juno.Height(ctx)
+	furyaHeight, err := furya.Height(ctx)
 	require.NoError(t, err)
 
-	_, err = testutil.PollForAck(ctx, juno, junoHeight-5, junoHeight+25, transferTx.Packet)
+	_, err = testutil.PollForAck(ctx, furya, furyaHeight-5, furyaHeight+25, transferTx.Packet)
 	require.NoError(t, err)
 
 	// Second time, this will make the counter == 1 since the account is now created.
-	transferTx, err = juno.SendIBCTransfer(ctx, channel.ChannelID, junoUser.KeyName(), transfer, memo)
+	transferTx, err = furya.SendIBCTransfer(ctx, channel.ChannelID, furyaUser.KeyName(), transfer, memo)
 	require.NoError(t, err)
-	junoHeight, err = juno.Height(ctx)
+	furyaHeight, err = furya.Height(ctx)
 	require.NoError(t, err)
 
-	_, err = testutil.PollForAck(ctx, juno, junoHeight-5, junoHeight+25, transferTx.Packet)
+	_, err = testutil.PollForAck(ctx, furya, furyaHeight-5, furyaHeight+25, transferTx.Packet)
 	require.NoError(t, err)
 
 	// Get the address on the other chain's side
-	addr := helpers.GetIBCHooksUserAddress(t, ctx, juno, channel.ChannelID, junoUserAddr)
+	addr := helpers.GetIBCHooksUserAddress(t, ctx, furya, channel.ChannelID, furyaUserAddr)
 	require.NotEmpty(t, addr)
 
 	// Get funds on the receiving chain
-	funds := helpers.GetIBCHookTotalFunds(t, ctx, juno2, contractAddr, addr)
+	funds := helpers.GetIBCHookTotalFunds(t, ctx, furya2, contractAddr, addr)
 	require.Equal(t, int(1), len(funds.Data.TotalFunds))
 
 	var ibcDenom string
@@ -178,6 +178,6 @@ func TestJunoIBCHooks(t *testing.T) {
 	require.NotEmpty(t, ibcDenom)
 
 	// ensure the count also increased to 1 as expected.
-	count := helpers.GetIBCHookCount(t, ctx, juno2, contractAddr, addr)
+	count := helpers.GetIBCHookCount(t, ctx, furya2, contractAddr, addr)
 	require.Equal(t, int64(1), count.Data.Count)
 }

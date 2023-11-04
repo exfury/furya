@@ -6,8 +6,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// TestBasicJunoStart is a basic test to assert that spinning up a Juno network with one validator works properly.
-func TestBasicJunoStart(t *testing.T) {
+// TestBasicFuryaStart is a basic test to assert that spinning up a Furya network with one validator works properly.
+func TestBasicFuryaStart(t *testing.T) {
 	if testing.Short() {
 		t.Skip()
 	}

@@ -32,8 +32,8 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	apphelpers "github.com/CosmosContracts/juno/v18/app/helpers"
-	appparams "github.com/CosmosContracts/juno/v18/app/params"
+	apphelpers "github.com/CosmosContracts/furya/v18/app/helpers"
+	appparams "github.com/CosmosContracts/furya/v18/app/params"
 )
 
 // SimAppChainID hardcoded chainID for simulation
@@ -50,7 +50,7 @@ func (ao EmptyBaseAppOptions) Get(_ string) interface{} {
 }
 
 // DefaultConsensusParams defines the default Tendermint consensus params used
-// in junoApp testing.
+// in furyaApp testing.
 var DefaultConsensusParams = &tmproto.ConsensusParams{
 	Block: &tmproto.BlockParams{
 		MaxBytes: 200000,
@@ -96,21 +96,21 @@ func Setup(t *testing.T) *App {
 	return app
 }
 
-// SetupWithGenesisValSet initializes a new junoApp with a validator set and genesis accounts
+// SetupWithGenesisValSet initializes a new furyaApp with a validator set and genesis accounts
 // that also act as delegators. For simplicity, each validator is bonded with a delegation
-// of one consensus engine unit in the default token of the JunoApp from first genesis
-// account. A Nop logger is set in JunoApp.
+// of one consensus engine unit in the default token of the FuryaApp from first genesis
+// account. A Nop logger is set in FuryaApp.
 func SetupWithGenesisValSet(t *testing.T, valSet *tmtypes.ValidatorSet, genAccs []authtypes.GenesisAccount, balances ...banktypes.Balance) *App {
 	t.Helper()
 
-	junoApp, genesisState := setup(t, true)
-	genesisState = genesisStateWithValSet(t, junoApp, genesisState, valSet, genAccs, balances...)
+	furyaApp, genesisState := setup(t, true)
+	genesisState = genesisStateWithValSet(t, furyaApp, genesisState, valSet, genAccs, balances...)
 
 	stateBytes, err := json.MarshalIndent(genesisState, "", " ")
 	require.NoError(t, err)
 
 	// init chain will set the validator set and initialize the genesis accounts
-	junoApp.InitChain(
+	furyaApp.InitChain(
 		abci.RequestInitChain{
 			Validators:      []abci.ValidatorUpdate{},
 			ConsensusParams: DefaultConsensusParams,
@@ -122,17 +122,17 @@ func SetupWithGenesisValSet(t *testing.T, valSet *tmtypes.ValidatorSet, genAccs 
 	)
 
 	// commit genesis changes
-	junoApp.Commit()
-	junoApp.BeginBlock(abci.RequestBeginBlock{Header: tmproto.Header{
+	furyaApp.Commit()
+	furyaApp.BeginBlock(abci.RequestBeginBlock{Header: tmproto.Header{
 		ChainID:            "testing",
-		Height:             junoApp.LastBlockHeight() + 1,
-		AppHash:            junoApp.LastCommitID().Hash,
+		Height:             furyaApp.LastBlockHeight() + 1,
+		AppHash:            furyaApp.LastCommitID().Hash,
 		ValidatorsHash:     valSet.Hash(),
 		NextValidatorsHash: valSet.Hash(),
 		Time:               time.Now().UTC(),
 	}})
 
-	return junoApp
+	return furyaApp
 }
 
 func setup(t *testing.T, withGenesis bool, opts ...wasmkeeper.Option) (*App, GenesisState) {

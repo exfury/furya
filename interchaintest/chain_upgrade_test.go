@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	junoconformance "github.com/CosmosContracts/juno/tests/interchaintest/conformance"
+	furyaconformance "github.com/CosmosContracts/furya/tests/interchaintest/conformance"
 	cosmosproto "github.com/cosmos/gogoproto/proto"
 	"github.com/docker/docker/client"
 	"github.com/strangelove-ventures/interchaintest/v7"
@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	chainName   = "juno"
+	chainName   = "furya"
 	upgradeName = "v18"
 
 	haltHeightDelta    = uint64(9) // will propose upgrade this many blocks in the future
@@ -29,13 +29,13 @@ const (
 var (
 	// baseChain is the current version of the chain that will be upgraded from
 	baseChain = ibc.DockerImage{
-		Repository: JunoMainRepo,
+		Repository: FuryaMainRepo,
 		Version:    "v17.0.0",
 		UidGid:     "1025:1025",
 	}
 )
 
-func TestBasicJunoUpgrade(t *testing.T) {
+func TestBasicFuryaUpgrade(t *testing.T) {
 	repo, version := GetDockerImageInfo()
 	CosmosChainUpgradeTest(t, chainName, version, repo, upgradeName)
 }
@@ -64,7 +64,7 @@ func CosmosChainUpgradeTest(t *testing.T, chainName, upgradeBranchVersion, upgra
 		},
 	}
 
-	cfg := junoConfig
+	cfg := furyaConfig
 	cfg.ModifyGenesis = cosmos.ModifyGenesis(previousVersionGenesis)
 	cfg.Images = []ibc.DockerImage{baseChain}
 
@@ -94,7 +94,7 @@ func CosmosChainUpgradeTest(t *testing.T, chainName, upgradeBranchVersion, upgra
 	UpgradeNodes(t, ctx, chain, client, haltHeight, upgradeRepo, upgradeBranchVersion)
 
 	// Post Upgrade: Conformance Validation
-	junoconformance.ConformanceCosmWasm(t, ctx, chain, chainUser)
+	furyaconformance.ConformanceCosmWasm(t, ctx, chain, chainUser)
 	// TODO: ibc conformance test
 }
 
@@ -154,7 +154,7 @@ func SubmitUpgradeProposal(t *testing.T, ctx context.Context, chain *cosmos.Cosm
 	upgradeMsg := []cosmosproto.Message{
 		&upgradetypes.MsgSoftwareUpgrade{
 			// gGov Module account
-			Authority: "juno10d07y265gmmuvt4z0w9aw880jnsr700jvss730",
+			Authority: "furya10d07y265gmmuvt4z0w9aw880jnsr700jvss730",
 			Plan: upgradetypes.Plan{
 				Name:   upgradeName,
 				Height: int64(haltHeight),

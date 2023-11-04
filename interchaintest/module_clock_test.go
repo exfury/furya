@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	clocktypes "github.com/CosmosContracts/juno/v18/x/clock/types"
+	clocktypes "github.com/CosmosContracts/furya/v18/x/clock/types"
 	cosmosproto "github.com/cosmos/gogoproto/proto"
 	"github.com/strangelove-ventures/interchaintest/v7"
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
@@ -13,42 +13,42 @@ import (
 	"github.com/strangelove-ventures/interchaintest/v7/testutil"
 	"github.com/stretchr/testify/require"
 
-	helpers "github.com/CosmosContracts/juno/tests/interchaintest/helpers"
+	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
 )
 
-// TestJunoClock ensures the clock module auto executes allowed contracts.
-func TestJunoClock(t *testing.T) {
+// TestFuryaClock ensures the clock module auto executes allowed contracts.
+func TestFuryaClock(t *testing.T) {
 	t.Parallel()
 
-	cfg := junoConfig
+	cfg := furyaConfig
 
 	// Base setup
 	chains := CreateChainWithCustomConfig(t, 1, 0, cfg)
 	ic, ctx, _, _ := BuildInitialChain(t, chains)
 
 	// Chains
-	juno := chains[0].(*cosmos.CosmosChain)
+	furya := chains[0].(*cosmos.CosmosChain)
 
 	// Users
-	users := interchaintest.GetAndFundTestUsers(t, ctx, "default", int64(10_000_000_000), juno, juno)
+	users := interchaintest.GetAndFundTestUsers(t, ctx, "default", int64(10_000_000_000), furya, furya)
 	user := users[0]
 
 	// Upload & init contract payment to another address
-	_, contractAddr := helpers.SetupContract(t, ctx, juno, user.KeyName(), "contracts/clock_example.wasm", `{}`)
+	_, contractAddr := helpers.SetupContract(t, ctx, furya, user.KeyName(), "contracts/clock_example.wasm", `{}`)
 
 	// Ensure config is 0
-	res := helpers.GetClockContractValue(t, ctx, juno, contractAddr)
+	res := helpers.GetClockContractValue(t, ctx, furya, contractAddr)
 	fmt.Printf("- res: %v\n", res.Data.Val)
 	require.Equal(t, uint32(0), res.Data.Val)
 
 	// Submit the proposal to add it to the allowed contracts list
-	SubmitParamChangeProp(t, ctx, juno, user, []string{contractAddr})
+	SubmitParamChangeProp(t, ctx, furya, user, []string{contractAddr})
 
 	// Wait 1 block
-	_ = testutil.WaitForBlocks(ctx, 1, juno)
+	_ = testutil.WaitForBlocks(ctx, 1, furya)
 
 	// Validate the contract is now auto incrementing from the end blocker
-	res = helpers.GetClockContractValue(t, ctx, juno, contractAddr)
+	res = helpers.GetClockContractValue(t, ctx, furya, contractAddr)
 	fmt.Printf("- res: %v\n", res.Data.Val)
 	require.GreaterOrEqual(t, res.Data.Val, uint32(1))
 
@@ -58,7 +58,7 @@ func TestJunoClock(t *testing.T) {
 }
 
 func SubmitParamChangeProp(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, user ibc.Wallet, contracts []string) string {
-	govAcc := "juno10d07y265gmmuvt4z0w9aw880jnsr700jvss730"
+	govAcc := "furya10d07y265gmmuvt4z0w9aw880jnsr700jvss730"
 	updateParams := []cosmosproto.Message{
 		&clocktypes.MsgUpdateParams{
 			Authority: govAcc,

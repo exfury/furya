@@ -23,7 +23,7 @@ fn encode_msg_create_vesting_acct(vest_to: &Addr, env: Env) -> Result<Response, 
         .into_vec();
 
     let msg = CosmosMsg::Stargate { 
-        type_url: "/juno.drip.v1.MsgDistributeTokens".to_string(), 
+        type_url: "/furya.drip.v1.MsgDistributeTokens".to_string(), 
         value: proto.into() 
     };
 

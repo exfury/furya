@@ -18,29 +18,29 @@ import (
 	testutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 	ibclocalhost "github.com/cosmos/ibc-go/v7/modules/light-clients/09-localhost"
 
-	clocktypes "github.com/CosmosContracts/juno/v18/x/clock/types"
-	feepaytypes "github.com/CosmosContracts/juno/v18/x/feepay/types"
-	feesharetypes "github.com/CosmosContracts/juno/v18/x/feeshare/types"
-	globalfeetypes "github.com/CosmosContracts/juno/v18/x/globalfee/types"
-	tokenfactorytypes "github.com/CosmosContracts/juno/v18/x/tokenfactory/types"
+	clocktypes "github.com/CosmosContracts/furya/v18/x/clock/types"
+	feepaytypes "github.com/CosmosContracts/furya/v18/x/feepay/types"
+	feesharetypes "github.com/CosmosContracts/furya/v18/x/feeshare/types"
+	globalfeetypes "github.com/CosmosContracts/furya/v18/x/globalfee/types"
+	tokenfactorytypes "github.com/CosmosContracts/furya/v18/x/tokenfactory/types"
 )
 
 var (
 	VotingPeriod     = "15s"
 	MaxDepositPeriod = "10s"
-	Denom            = "ujuno"
+	Denom            = "ufury"
 
-	JunoE2ERepo  = "ghcr.io/cosmoscontracts/juno-e2e"
-	JunoMainRepo = "ghcr.io/cosmoscontracts/juno"
+	FuryaE2ERepo  = "ghcr.io/cosmoscontracts/furya-e2e"
+	FuryaMainRepo = "ghcr.io/cosmoscontracts/furya"
 
 	IBCRelayerImage   = "ghcr.io/cosmos/relayer"
 	IBCRelayerVersion = "main"
 
-	junoRepo, junoVersion = GetDockerImageInfo()
+	furyaRepo, furyaVersion = GetDockerImageInfo()
 
-	JunoImage = ibc.DockerImage{
-		Repository: junoRepo,
-		Version:    junoVersion,
+	FuryaImage = ibc.DockerImage{
+		Repository: furyaRepo,
+		Version:    furyaVersion,
 		UidGid:     "1025:1025",
 	}
 
@@ -64,13 +64,13 @@ var (
 		},
 	}
 
-	junoConfig = ibc.ChainConfig{
+	furyaConfig = ibc.ChainConfig{
 		Type:                "cosmos",
-		Name:                "juno",
-		ChainID:             "juno-2",
-		Images:              []ibc.DockerImage{JunoImage},
-		Bin:                 "junod",
-		Bech32Prefix:        "juno",
+		Name:                "furya",
+		ChainID:             "furya-2",
+		Images:              []ibc.DockerImage{FuryaImage},
+		Bin:                 "furyad",
+		Bech32Prefix:        "furya",
 		Denom:               Denom,
 		CoinType:            "118",
 		GasPrices:           fmt.Sprintf("0%s", Denom),
@@ -78,7 +78,7 @@ var (
 		TrustingPeriod:      "112h",
 		NoHostMount:         false,
 		ConfigFileOverrides: nil,
-		EncodingConfig:      junoEncoding(),
+		EncodingConfig:      furyaEncoding(),
 		ModifyGenesis:       cosmos.ModifyGenesis(defaultGenesisKV),
 	}
 
@@ -86,15 +86,15 @@ var (
 )
 
 func init() {
-	sdk.GetConfig().SetBech32PrefixForAccount("juno", "juno")
-	sdk.GetConfig().SetBech32PrefixForValidator("junovaloper", "juno")
-	sdk.GetConfig().SetBech32PrefixForConsensusNode("junovalcons", "juno")
+	sdk.GetConfig().SetBech32PrefixForAccount("furya", "furya")
+	sdk.GetConfig().SetBech32PrefixForValidator("furyavaloper", "furya")
+	sdk.GetConfig().SetBech32PrefixForConsensusNode("furyavalcons", "furya")
 	sdk.GetConfig().SetCoinType(118)
 }
 
-// junoEncoding registers the Juno specific module codecs so that the associated types and msgs
+// furyaEncoding registers the Furya specific module codecs so that the associated types and msgs
 // will be supported when writing to the blocksdb sqlite database.
-func junoEncoding() *testutil.TestEncodingConfig {
+func furyaEncoding() *testutil.TestEncodingConfig {
 	cfg := cosmos.DefaultEncoding()
 
 	// register custom types
@@ -111,21 +111,21 @@ func junoEncoding() *testutil.TestEncodingConfig {
 
 // CreateChain generates a new chain with a custom image (useful for upgrades)
 func CreateChain(t *testing.T, numVals, numFull int, img ibc.DockerImage) []ibc.Chain {
-	cfg := junoConfig
+	cfg := furyaConfig
 	cfg.Images = []ibc.DockerImage{img}
 	return CreateChainWithCustomConfig(t, numVals, numFull, cfg)
 }
 
 // CreateThisBranchChain generates this branch's chain (ex: from the commit)
 func CreateThisBranchChain(t *testing.T, numVals, numFull int) []ibc.Chain {
-	return CreateChain(t, numVals, numFull, JunoImage)
+	return CreateChain(t, numVals, numFull, FuryaImage)
 }
 
 func CreateChainWithCustomConfig(t *testing.T, numVals, numFull int, config ibc.ChainConfig) []ibc.Chain {
 	cf := interchaintest.NewBuiltinChainFactory(zaptest.NewLogger(t), []*interchaintest.ChainSpec{
 		{
-			Name:          "juno",
-			ChainName:     "juno",
+			Name:          "furya",
+			ChainName:     "furya",
 			Version:       config.Images[0].Version,
 			ChainConfig:   config,
 			NumValidators: &numVals,

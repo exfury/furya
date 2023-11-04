@@ -6,10 +6,10 @@ import (
 
 	store "github.com/cosmos/cosmos-sdk/store/types"
 
-	"github.com/CosmosContracts/juno/v18/app/upgrades"
+	"github.com/CosmosContracts/furya/v18/app/upgrades"
 )
 
-// UpgradeName defines the on-chain upgrade name for the Juno v11 upgrade.
+// UpgradeName defines the on-chain upgrade name for the Furya v11 upgrade.
 const UpgradeName = "v11" // maybe multiverse?
 
 var Upgrade = upgrades.Upgrade{

@@ -114,7 +114,7 @@ func TestFullAppSimulation(t *testing.T) {
 		fauxMerkleModeOpt,
 		baseapp.SetChainID(SimAppChainID),
 	)
-	require.Equal(t, "juno", app.Name())
+	require.Equal(t, "furya", app.Name())
 
 	// run randomized simulation
 	_, simParams, simErr := simulation.SimulateFromSeed(

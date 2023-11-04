@@ -16,7 +16,7 @@ var (
 	ErrContractNotAdmin          = errorsmod.Register(ModuleName, 6, "sender is not the contract admin")
 	ErrContractNotCreator        = errorsmod.Register(ModuleName, 7, "sender is not the contract creator")
 	ErrInvalidWalletLimit        = errorsmod.Register(ModuleName, 8, "invalid wallet limit; must be between 0 and 1,000,000")
-	ErrInvalidJunoFundAmount     = errorsmod.Register(ModuleName, 9, "fee pay contracts only accept juno funds")
+	ErrInvalidFuryaFundAmount     = errorsmod.Register(ModuleName, 9, "fee pay contracts only accept furya funds")
 	ErrInvalidCWContract         = errorsmod.Register(ModuleName, 10, "invalid CosmWasm contract")
 	ErrFeePayDisabled            = errorsmod.Register(ModuleName, 11, "the FeePay module is disabled")
 )

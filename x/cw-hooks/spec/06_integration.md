@@ -4,7 +4,7 @@ This module does __not__ require any custom bindings. Rather, you must just add 
 
 If you have not permissionlessly registered your contract, you can do so [here](./04_register.md)
 
-You can find a basic [cw-hooks contract here](https://github.com/Reecepbcups/cw-juno-staking-hooks-example)
+You can find a basic [cw-hooks contract here](https://github.com/Reecepbcups/cw-furya-staking-hooks-example)
 
 ## Implementation
 

@@ -8,36 +8,36 @@ export GOPATH=~/go
 export PATH=$PATH:~/go/bin
 
 # Initialize chain.
-junod init test
+furyad init test
 
 # Get Genesis
-wget https://download.dimi.sh/juno-phoenix2-genesis.tar.gz
-tar -xvf juno-phoenix2-genesis.tar.gz
-mv juno-phoenix2-genesis.json "$HOME/.juno/config/genesis.json"
+wget https://download.dimi.sh/furya-phoenix2-genesis.tar.gz
+tar -xvf furya-phoenix2-genesis.tar.gz
+mv furya-phoenix2-genesis.json "$HOME/.furya/config/genesis.json"
 
 
 
 
 # Get "trust_hash" and "trust_height".
 INTERVAL=1000
-LATEST_HEIGHT="$(curl -s https://juno-rpc.polkachu.com/block | jq -r .result.block.header.height)"
+LATEST_HEIGHT="$(curl -s https://furya-rpc.polkachu.com/block | jq -r .result.block.header.height)"
 BLOCK_HEIGHT="$((LATEST_HEIGHT-INTERVAL))"
-TRUST_HASH="$(curl -s "https://juno-rpc.polkachu.com/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)"
+TRUST_HASH="$(curl -s "https://furya-rpc.polkachu.com/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)"
 
 # Print out block and transaction hash from which to sync state.
 echo "trust_height: $BLOCK_HEIGHT"
 echo "trust_hash: $TRUST_HASH"
 
 # Export state sync variables.
-export JUNOD_STATESYNC_ENABLE=true
-export JUNOD_P2P_MAX_NUM_OUTBOUND_PEERS=200
-export JUNOD_STATESYNC_RPC_SERVERS="https://rpc-juno-ia.notional.ventures:443,https://juno-rpc.polkachu.com:443"
-export JUNOD_STATESYNC_TRUST_HEIGHT=$BLOCK_HEIGHT
-export JUNOD_STATESYNC_TRUST_HASH=$TRUST_HASH
+export FURYAD_STATESYNC_ENABLE=true
+export FURYAD_P2P_MAX_NUM_OUTBOUND_PEERS=200
+export FURYAD_STATESYNC_RPC_SERVERS="https://rpc-furya-ia.notional.ventures:443,https://furya-rpc.polkachu.com:443"
+export FURYAD_STATESYNC_TRUST_HEIGHT=$BLOCK_HEIGHT
+export FURYAD_STATESYNC_TRUST_HASH=$TRUST_HASH
 
 # Fetch and set list of seeds from chain registry.
-JUNOD_P2P_SEEDS="$(curl -s https://raw.githubusercontent.com/cosmos/chain-registry/master/juno/chain.json | jq -r '[foreach .peers.seeds[] as $item (""; "\($item.id)@\($item.address)")] | join(",")')"
-export JUNOD_P2P_SEEDS
+FURYAD_P2P_SEEDS="$(curl -s https://raw.githubusercontent.com/cosmos/chain-registry/master/furya/chain.json | jq -r '[foreach .peers.seeds[] as $item (""; "\($item.id)@\($item.address)")] | join(",")')"
+export FURYAD_P2P_SEEDS
 
 # Start chain.
-junod start --x-crisis-skip-assert-invariants 
+furyad start --x-crisis-skip-assert-invariants 

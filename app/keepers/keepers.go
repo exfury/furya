@@ -82,25 +82,25 @@ import (
 	upgradekeeper "github.com/cosmos/cosmos-sdk/x/upgrade/keeper"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	junoburn "github.com/CosmosContracts/juno/v18/x/burn"
-	clockkeeper "github.com/CosmosContracts/juno/v18/x/clock/keeper"
-	clocktypes "github.com/CosmosContracts/juno/v18/x/clock/types"
-	cwhookskeeper "github.com/CosmosContracts/juno/v18/x/cw-hooks/keeper"
-	cwhookstypes "github.com/CosmosContracts/juno/v18/x/cw-hooks/types"
-	dripkeeper "github.com/CosmosContracts/juno/v18/x/drip/keeper"
-	driptypes "github.com/CosmosContracts/juno/v18/x/drip/types"
-	feepaykeeper "github.com/CosmosContracts/juno/v18/x/feepay/keeper"
-	feepaytypes "github.com/CosmosContracts/juno/v18/x/feepay/types"
-	feesharekeeper "github.com/CosmosContracts/juno/v18/x/feeshare/keeper"
-	feesharetypes "github.com/CosmosContracts/juno/v18/x/feeshare/types"
-	"github.com/CosmosContracts/juno/v18/x/globalfee"
-	globalfeekeeper "github.com/CosmosContracts/juno/v18/x/globalfee/keeper"
-	globalfeetypes "github.com/CosmosContracts/juno/v18/x/globalfee/types"
-	mintkeeper "github.com/CosmosContracts/juno/v18/x/mint/keeper"
-	minttypes "github.com/CosmosContracts/juno/v18/x/mint/types"
-	"github.com/CosmosContracts/juno/v18/x/tokenfactory/bindings"
-	tokenfactorykeeper "github.com/CosmosContracts/juno/v18/x/tokenfactory/keeper"
-	tokenfactorytypes "github.com/CosmosContracts/juno/v18/x/tokenfactory/types"
+	furyaburn "github.com/CosmosContracts/furya/v18/x/burn"
+	clockkeeper "github.com/CosmosContracts/furya/v18/x/clock/keeper"
+	clocktypes "github.com/CosmosContracts/furya/v18/x/clock/types"
+	cwhookskeeper "github.com/CosmosContracts/furya/v18/x/cw-hooks/keeper"
+	cwhookstypes "github.com/CosmosContracts/furya/v18/x/cw-hooks/types"
+	dripkeeper "github.com/CosmosContracts/furya/v18/x/drip/keeper"
+	driptypes "github.com/CosmosContracts/furya/v18/x/drip/types"
+	feepaykeeper "github.com/CosmosContracts/furya/v18/x/feepay/keeper"
+	feepaytypes "github.com/CosmosContracts/furya/v18/x/feepay/types"
+	feesharekeeper "github.com/CosmosContracts/furya/v18/x/feeshare/keeper"
+	feesharetypes "github.com/CosmosContracts/furya/v18/x/feeshare/types"
+	"github.com/CosmosContracts/furya/v18/x/globalfee"
+	globalfeekeeper "github.com/CosmosContracts/furya/v18/x/globalfee/keeper"
+	globalfeetypes "github.com/CosmosContracts/furya/v18/x/globalfee/types"
+	mintkeeper "github.com/CosmosContracts/furya/v18/x/mint/keeper"
+	minttypes "github.com/CosmosContracts/furya/v18/x/mint/types"
+	"github.com/CosmosContracts/furya/v18/x/tokenfactory/bindings"
+	tokenfactorykeeper "github.com/CosmosContracts/furya/v18/x/tokenfactory/keeper"
+	tokenfactorytypes "github.com/CosmosContracts/furya/v18/x/tokenfactory/types"
 )
 
 var (
@@ -131,7 +131,7 @@ var maccPerms = map[string][]string{
 	globalfee.ModuleName:           nil,
 	buildertypes.ModuleName:        nil,
 	feepaytypes.ModuleName:         nil,
-	junoburn.ModuleName:            {authtypes.Burner},
+	furyaburn.ModuleName:            {authtypes.Burner},
 }
 
 type AppKeepers struct {
@@ -239,7 +239,7 @@ func NewAppKeepers(
 	scopedWasmKeeper := appKeepers.CapabilityKeeper.ScopeToModule(wasmtypes.ModuleName)
 
 	// add keepers
-	Bech32Prefix := "juno"
+	Bech32Prefix := "furya"
 	appKeepers.AccountKeeper = authkeeper.NewAccountKeeper(
 		appCodec,
 		keys[authtypes.StoreKey],
@@ -369,8 +369,8 @@ func NewAppKeepers(
 	)
 	appKeepers.IBCHooksKeeper = &hooksKeeper
 
-	junoPrefix := sdk.GetConfig().GetBech32AccountAddrPrefix()
-	wasmHooks := ibc_hooks.NewWasmHooks(appKeepers.IBCHooksKeeper, &appKeepers.WasmKeeper, junoPrefix) // The contract keeper needs to be set later
+	furyaPrefix := sdk.GetConfig().GetBech32AccountAddrPrefix()
+	wasmHooks := ibc_hooks.NewWasmHooks(appKeepers.IBCHooksKeeper, &appKeepers.WasmKeeper, furyaPrefix) // The contract keeper needs to be set later
 	appKeepers.Ics20WasmHooks = &wasmHooks
 	appKeepers.HooksICS4Wrapper = ibc_hooks.NewICS4Middleware(
 		appKeepers.IBCKeeper.ChannelKeeper,
@@ -522,8 +522,8 @@ func NewAppKeepers(
 		})
 	wasmOpts = append(wasmOpts, querierOpts)
 
-	junoBurnerPlugin := junoburn.NewBurnerPlugin(appKeepers.BankKeeper, appKeepers.MintKeeper)
-	burnOverride := wasmkeeper.WithMessageHandler(wasmkeeper.NewBurnCoinMessageHandler(junoBurnerPlugin))
+	furyaBurnerPlugin := furyaburn.NewBurnerPlugin(appKeepers.BankKeeper, appKeepers.MintKeeper)
+	burnOverride := wasmkeeper.WithMessageHandler(wasmkeeper.NewBurnCoinMessageHandler(furyaBurnerPlugin))
 	wasmOpts = append(wasmOpts, burnOverride)
 
 	appKeepers.WasmKeeper = wasmkeeper.NewKeeper(

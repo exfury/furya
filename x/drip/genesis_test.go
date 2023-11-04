@@ -10,9 +10,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/juno/v18/app"
-	drip "github.com/CosmosContracts/juno/v18/x/drip"
-	"github.com/CosmosContracts/juno/v18/x/drip/types"
+	"github.com/CosmosContracts/furya/v18/app"
+	drip "github.com/CosmosContracts/furya/v18/x/drip"
+	"github.com/CosmosContracts/furya/v18/x/drip/types"
 )
 
 type GenesisTestSuite struct {
@@ -66,7 +66,7 @@ func (suite *GenesisTestSuite) TestDripInitGenesis() {
 			types.GenesisState{
 				Params: types.Params{
 					EnableDrip:       true,
-					AllowedAddresses: []string{"juno1v6vlpuqlhhpwujvaqs4pe5dmljapdev4s827ql"},
+					AllowedAddresses: []string{"furya1v6vlpuqlhhpwujvaqs4pe5dmljapdev4s827ql"},
 				},
 			},
 			false,
@@ -76,7 +76,7 @@ func (suite *GenesisTestSuite) TestDripInitGenesis() {
 			types.GenesisState{
 				Params: types.Params{
 					EnableDrip:       true,
-					AllowedAddresses: []string{"juno1v6vlpuqlhhpwujvaqs4pe5dmljapdev4s827ql", "juno1hq2p69p4kmwndxlss7dqk0sr5pe5mmcpf7wqec"},
+					AllowedAddresses: []string{"furya1v6vlpuqlhhpwujvaqs4pe5dmljapdev4s827ql", "furya1hq2p69p4kmwndxlss7dqk0sr5pe5mmcpf7wqec"},
 				},
 			},
 			false,
@@ -86,7 +86,7 @@ func (suite *GenesisTestSuite) TestDripInitGenesis() {
 			types.GenesisState{
 				Params: types.Params{
 					EnableDrip:       true,
-					AllowedAddresses: []string{"juno1v6vllollollollollolloldmljapdev4s827ql"},
+					AllowedAddresses: []string{"furya1v6vllollollollollolloldmljapdev4s827ql"},
 				},
 			},
 			true,

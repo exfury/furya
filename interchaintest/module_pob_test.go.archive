@@ -15,8 +15,8 @@ var (
 )
 
 func GetInterchainSpecForPOB() *interchaintest.ChainSpec {
-	// update the genesis kv for juno
-	updatedChainConfig := junoConfig
+	// update the genesis kv for furya
+	updatedChainConfig := furyaConfig
 	updatedChainConfig.ModifyGenesis = cosmos.ModifyGenesis(append(defaultGenesisKV, []cosmos.GenesisKV{
 		{
 			Key:   "app_state.builder.params.max_bundle_size",
@@ -24,7 +24,7 @@ func GetInterchainSpecForPOB() *interchaintest.ChainSpec {
 		},
 		{
 			Key:   "app_state.builder.params.reserve_fee.denom",
-			Value: "ujuno",
+			Value: "ufury",
 		},
 		{
 			Key:   "app_state.builder.params.reserve_fee.amount",
@@ -32,7 +32,7 @@ func GetInterchainSpecForPOB() *interchaintest.ChainSpec {
 		},
 		{
 			Key:   "app_state.builder.params.min_bid_increment.denom",
-			Value: "ujuno",
+			Value: "ufury",
 		},
 		{
 			Key:   "app_state.builder.params.min_bid_increment.amount",
@@ -41,18 +41,18 @@ func GetInterchainSpecForPOB() *interchaintest.ChainSpec {
 	}...))
 
 	return &interchaintest.ChainSpec{
-		Name:          "juno",
-		ChainName:     "juno",
-		Version:       junoVersion,
+		Name:          "furya",
+		ChainName:     "furya",
+		Version:       furyaVersion,
 		ChainConfig:   updatedChainConfig,
 		NumValidators: &numVals,
 		NumFullNodes:  &numFull,
 	}
 }
 
-func TestJunoPOB(t *testing.T) {
+func TestFuryaPOB(t *testing.T) {
 	s := integration.NewPOBIntegrationTestSuiteFromSpec(GetInterchainSpecForPOB())
-	s.WithDenom("ujuno")
+	s.WithDenom("ufury")
 
 	suite.Run(t, s)
 }

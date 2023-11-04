@@ -28,8 +28,8 @@ func init() {
 
 // RegisterLegacyAminoCodec registers concrete types on the LegacyAmino codec
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(Params{}, "juno/x/mint/Params", nil)
-	legacy.RegisterAminoMsg(cdc, &MsgUpdateParams{}, "juno/x/mint/MsgUpdateParams")
+	cdc.RegisterConcrete(Params{}, "furya/x/mint/Params", nil)
+	legacy.RegisterAminoMsg(cdc, &MsgUpdateParams{}, "furya/x/mint/MsgUpdateParams")
 }
 
 func RegisterInterfaces(registry types.InterfaceRegistry) {

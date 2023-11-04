@@ -13,14 +13,14 @@ BLOCK_GAS_LIMIT=${GAS_LIMIT:-10000000} # should mirror mainnet
 echo "Configured Block Gas Limit: $BLOCK_GAS_LIMIT"
 
 # check the genesis file
-GENESIS_FILE="$HOME"/.juno/config/genesis.json
+GENESIS_FILE="$HOME"/.furya/config/genesis.json
 if [ -f "$GENESIS_FILE" ]; then
   echo "$GENESIS_FILE exists..."
 else
   echo "$GENESIS_FILE does not exist. Generating..."
 
-  junod init --chain-id "$CHAIN_ID" "$MONIKER"
-  junod add-ica-config
+  furyad init --chain-id "$CHAIN_ID" "$MONIKER"
+  furyad add-ica-config
   # staking/governance token is hardcoded in config, change this
   sed -i "s/\"stake\"/\"$STAKE\"/" "$GENESIS_FILE"
   # this is essential for sub-1s block times (or header times go crazy)
@@ -28,12 +28,12 @@ else
   # change gas limit to mainnet value
   sed -i 's/"max_gas": "-1"/"max_gas": "'"$BLOCK_GAS_LIMIT"'"/' "$GENESIS_FILE"
   # change default keyring-backend to test
-  sed -i 's/keyring-backend = "os"/keyring-backend = "test"/' "$HOME"/.juno/config/client.toml
+  sed -i 's/keyring-backend = "os"/keyring-backend = "test"/' "$HOME"/.furya/config/client.toml
 fi
 
-APP_TOML_CONFIG="$HOME"/.juno/config/app.toml
-APP_TOML_CONFIG_NEW="$HOME"/.juno/config/app_new.toml
-CONFIG_TOML_CONFIG="$HOME"/.juno/config/config.toml
+APP_TOML_CONFIG="$HOME"/.furya/config/app.toml
+APP_TOML_CONFIG_NEW="$HOME"/.furya/config/app_new.toml
+CONFIG_TOML_CONFIG="$HOME"/.furya/config/config.toml
 if [ -n "$UNSAFE_CORS" ]; then
   echo "Unsafe CORS set... updating app.toml and config.toml"
   # sorry about this bit, but toml is rubbish for structural editing
@@ -48,22 +48,22 @@ fi
 sed -i "s/timeout_commit = \"5s\"/timeout_commit = \"$TIMEOUT_COMMIT\"/" "$CONFIG_TOML_CONFIG"
 
 # are we running for the first time?
-if ! junod keys show validator $KEYRING; then
-  (echo "$PASSWORD"; echo "$PASSWORD") | junod keys add validator $KEYRING
+if ! furyad keys show validator $KEYRING; then
+  (echo "$PASSWORD"; echo "$PASSWORD") | furyad keys add validator $KEYRING
 
   # hardcode the validator account for this instance
-  echo "$PASSWORD" | junod genesis add-genesis-account validator "1000000000$STAKE,1000000000$FEE" $KEYRING
+  echo "$PASSWORD" | furyad genesis add-genesis-account validator "1000000000$STAKE,1000000000$FEE" $KEYRING
 
   # (optionally) add a few more genesis accounts
   for addr in "$@"; do
     echo $addr
-    junod genesis add-genesis-account "$addr" "1000000000$STAKE,1000000000$FEE"
+    furyad genesis add-genesis-account "$addr" "1000000000$STAKE,1000000000$FEE"
   done
 
   # submit a genesis validator tx
   ## Workraround for https://github.com/cosmos/cosmos-sdk/issues/8251
-  (echo "$PASSWORD"; echo "$PASSWORD"; echo "$PASSWORD") | junod genesis gentx validator "250000000$STAKE" --chain-id="$CHAIN_ID" --amount="250000000$STAKE" $KEYRING
+  (echo "$PASSWORD"; echo "$PASSWORD"; echo "$PASSWORD") | furyad genesis gentx validator "250000000$STAKE" --chain-id="$CHAIN_ID" --amount="250000000$STAKE" $KEYRING
   ## should be:
-  # (echo "$PASSWORD"; echo "$PASSWORD"; echo "$PASSWORD") | junod genesis gentx validator "250000000$STAKE" --chain-id="$CHAIN_ID"
-  junod genesis collect-gentxs
+  # (echo "$PASSWORD"; echo "$PASSWORD"; echo "$PASSWORD") | furyad genesis gentx validator "250000000$STAKE" --chain-id="$CHAIN_ID"
+  furyad genesis collect-gentxs
 fi

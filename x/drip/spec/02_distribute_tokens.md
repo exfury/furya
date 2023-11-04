@@ -9,7 +9,7 @@ Once an address is authorized, at any time it can use the `MsgDistributToken` me
 From command line is as easy as running the follwing instruction
 
 ```
-junod tx drip distribute-tokens 100000tf/yourcontract/yourtoken
+furyad tx drip distribute-tokens 100000tf/yourcontract/yourtoken
 ```
 
 Only native tokens and the ones made with tokenfactory are allowed. 

@@ -31,7 +31,7 @@ if not version:
 output: dict
 output = {
     "swagger": "2.0",
-    "info": {"title": "Juno network", "version": version},
+    "info": {"title": "Furya network", "version": version},
     "consumes": ["application/json"],
     "produces": ["application/json"],
     "paths": {},

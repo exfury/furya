@@ -6,10 +6,10 @@ order: 8
 
 ## Command Line Interface
 
-Find below a list of `junod` commands added with the  `x/feeshare` module. You can obtain the full list by using the `junod -h` command. A CLI command can look like this:
+Find below a list of `furyad` commands added with the  `x/feeshare` module. You can obtain the full list by using the `furyad -h` command. A CLI command can look like this:
 
 ```bash
-junod query feeshare params
+furyad query feeshare params
 ```
 
 ### Queries
@@ -34,24 +34,24 @@ junod query feeshare params
 
 | Verb   | Method                                            | Description                              |
 | :----- | :------------------------------------------------ | :--------------------------------------- |
-| `gRPC` | `juno.feeshare.v1.Query/Params`                   | Get feeshare params                      |
-| `gRPC` | `juno.feeshare.v1.Query/FeeShare`                  | Get the feeshare for a given contract    |
-| `gRPC` | `juno.feeshare.v1.Query/FeeShares`                 | Get all feeshares                        |
-| `gRPC` | `juno.feeshare.v1.Query/DeployerFeeShares`         | Get all feeshares of a given deployer    |
-| `gRPC` | `juno.feeshare.v1.Query/WithdrawerFeeShares`       | Get all feeshares of a given withdrawer  |
-| `GET`  | `/juno/feeshare/v1/params`                        | Get feeshare params                      |
-| `GET`  | `/juno/feeshare/v1/feeshares/{contract_address}`  | Get the feeshare for a given contract    |
-| `GET`  | `/juno/feeshare/v1/feeshares`                     | Get all feeshares                        |
-| `GET`  | `/juno/feeshare/v1/feeshares/{deployer_address}`  | Get all feeshares of a given deployer    |
-| `GET`  | `/juno/feeshare/v1/feeshares/{withdraw_address}`  | Get all feeshares of a given withdrawer  |
+| `gRPC` | `furya.feeshare.v1.Query/Params`                   | Get feeshare params                      |
+| `gRPC` | `furya.feeshare.v1.Query/FeeShare`                  | Get the feeshare for a given contract    |
+| `gRPC` | `furya.feeshare.v1.Query/FeeShares`                 | Get all feeshares                        |
+| `gRPC` | `furya.feeshare.v1.Query/DeployerFeeShares`         | Get all feeshares of a given deployer    |
+| `gRPC` | `furya.feeshare.v1.Query/WithdrawerFeeShares`       | Get all feeshares of a given withdrawer  |
+| `GET`  | `/furya/feeshare/v1/params`                        | Get feeshare params                      |
+| `GET`  | `/furya/feeshare/v1/feeshares/{contract_address}`  | Get the feeshare for a given contract    |
+| `GET`  | `/furya/feeshare/v1/feeshares`                     | Get all feeshares                        |
+| `GET`  | `/furya/feeshare/v1/feeshares/{deployer_address}`  | Get all feeshares of a given deployer    |
+| `GET`  | `/furya/feeshare/v1/feeshares/{withdraw_address}`  | Get all feeshares of a given withdrawer  |
 
 ### gRPC Transactions
 
 | Verb   | Method                                     | Description                                |
 | :----- | :----------------------------------------- | :----------------------------------------- |
-| `gRPC` | `juno.feeshare.v1.Msg/RegisterFeeShare`   | Register a contract for receiving feeshare   |
-| `gRPC` | `juno.feeshare.v1.Msg/UpdateFeeShare`     | Update the withdraw address for a contract   |
-| `gRPC` | `juno.feeshare.v1.Msg/CancelFeeShare`     | Remove the feeshare for a contract           |
-| `POST` | `/juno/feeshare/v1/tx/register_feeshare` | Register a contract for receiving feeshare   |
-| `POST` | `/juno/feeshare/v1/tx/update_feeshare`   | Update the withdraw address for a contract   |
-| `POST` | `/juno/feeshare/v1/tx/cancel_feeshare`   | Remove the feeshare for a contract           |
+| `gRPC` | `furya.feeshare.v1.Msg/RegisterFeeShare`   | Register a contract for receiving feeshare   |
+| `gRPC` | `furya.feeshare.v1.Msg/UpdateFeeShare`     | Update the withdraw address for a contract   |
+| `gRPC` | `furya.feeshare.v1.Msg/CancelFeeShare`     | Remove the feeshare for a contract           |
+| `POST` | `/furya/feeshare/v1/tx/register_feeshare` | Register a contract for receiving feeshare   |
+| `POST` | `/furya/feeshare/v1/tx/update_feeshare`   | Update the withdraw address for a contract   |
+| `POST` | `/furya/feeshare/v1/tx/cancel_feeshare`   | Remove the feeshare for a contract           |

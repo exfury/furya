@@ -15,7 +15,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	tokenfactorytypes "github.com/CosmosContracts/juno/v18/x/tokenfactory/types"
+	tokenfactorytypes "github.com/CosmosContracts/furya/v18/x/tokenfactory/types"
 )
 
 func debugOutput(t *testing.T, stdout string) {
@@ -27,7 +27,7 @@ func debugOutput(t *testing.T, stdout string) {
 func CreateTokenFactoryDenom(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, user ibc.Wallet, subDenomName, feeCoin string) (fullDenom string) {
 	// TF gas to create cost 2mil, so we set to 2.5 to be safe
 	cmd := []string{
-		"junod", "tx", "tokenfactory", "create-denom", subDenomName,
+		"furyad", "tx", "tokenfactory", "create-denom", subDenomName,
 		"--node", chain.GetRPCAddress(),
 		"--home", chain.HomeDir(),
 		"--chain-id", chain.Config().ChainID,
@@ -58,7 +58,7 @@ func MintTokenFactoryDenom(t *testing.T, ctx context.Context, chain *cosmos.Cosm
 
 	// mint new tokens to the account
 	cmd := []string{
-		"junod", "tx", "tokenfactory", "mint", denom,
+		"furyad", "tx", "tokenfactory", "mint", denom,
 		"--node", chain.GetRPCAddress(),
 		"--home", chain.HomeDir(),
 		"--chain-id", chain.Config().ChainID,
@@ -85,7 +85,7 @@ func MintToTokenFactoryDenom(t *testing.T, ctx context.Context, chain *cosmos.Co
 
 	// mint new tokens to the account
 	cmd := []string{
-		"junod", "tx", "tokenfactory", "mint-to", receiver, denom,
+		"furyad", "tx", "tokenfactory", "mint-to", receiver, denom,
 		"--node", chain.GetRPCAddress(),
 		"--home", chain.HomeDir(),
 		"--chain-id", chain.Config().ChainID,
@@ -104,9 +104,9 @@ func MintToTokenFactoryDenom(t *testing.T, ctx context.Context, chain *cosmos.Co
 }
 
 func UpdateTokenFactoryMetadata(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, admin ibc.Wallet, fullDenom, ticker, desc, exponent string) {
-	// junod tx tokenfactory modify-metadata [denom] [ticker-symbol] [description] [exponent]
+	// furyad tx tokenfactory modify-metadata [denom] [ticker-symbol] [description] [exponent]
 	cmd := []string{
-		"junod", "tx", "tokenfactory", "modify-metadata", fullDenom, ticker, fmt.Sprintf("'%s'", desc), exponent,
+		"furyad", "tx", "tokenfactory", "modify-metadata", fullDenom, ticker, fmt.Sprintf("'%s'", desc), exponent,
 		"--node", chain.GetRPCAddress(),
 		"--home", chain.HomeDir(),
 		"--chain-id", chain.Config().ChainID,
@@ -126,7 +126,7 @@ func UpdateTokenFactoryMetadata(t *testing.T, ctx context.Context, chain *cosmos
 
 func TransferTokenFactoryAdmin(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, currentAdmin ibc.Wallet, newAdminBech32 string, fullDenom string) {
 	cmd := []string{
-		"junod", "tx", "tokenfactory", "change-admin", fullDenom, newAdminBech32,
+		"furyad", "tx", "tokenfactory", "change-admin", fullDenom, newAdminBech32,
 		"--node", chain.GetRPCAddress(),
 		"--home", chain.HomeDir(),
 		"--chain-id", chain.Config().ChainID,
@@ -148,7 +148,7 @@ func TransferTokenFactoryAdmin(t *testing.T, ctx context.Context, chain *cosmos.
 func GetTokenFactoryAdmin(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, fullDenom string) string {
 	// $BINARY q tokenfactory denom-authority-metadata $FULL_DENOM
 	cmd := []string{
-		"junod", "query", "tokenfactory", "denom-authority-metadata", fullDenom,
+		"furyad", "query", "tokenfactory", "denom-authority-metadata", fullDenom,
 		"--node", chain.GetRPCAddress(),
 		"--chain-id", chain.Config().ChainID,
 		"--output", "json",
@@ -169,7 +169,7 @@ func GetTokenFactoryAdmin(t *testing.T, ctx context.Context, chain *cosmos.Cosmo
 
 func GetTokenFactoryDenomMetadata(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, fullDenom string) banktypes.Metadata {
 	cmd := []string{
-		"junod", "query", "bank", "denom-metadata", "--denom", fullDenom,
+		"furyad", "query", "bank", "denom-metadata", "--denom", fullDenom,
 		"--node", chain.GetRPCAddress(),
 		"--chain-id", chain.Config().ChainID,
 		"--output", "json",

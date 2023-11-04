@@ -5,8 +5,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
-	"github.com/CosmosContracts/juno/v18/testutil/nullify"
-	"github.com/CosmosContracts/juno/v18/x/feepay/types"
+	"github.com/CosmosContracts/furya/v18/testutil/nullify"
+	"github.com/CosmosContracts/furya/v18/x/feepay/types"
 )
 
 func (s *IntegrationTestSuite) TestQueryContract() {
@@ -154,7 +154,7 @@ func (s *IntegrationTestSuite) TestQueryContracts() {
 func (s *IntegrationTestSuite) TestQueryEligibility() {
 	// Get & fund creator
 	_, _, sender := testdata.KeyTestPubAddr()
-	_ = s.FundAccount(s.ctx, sender, sdk.NewCoins(sdk.NewCoin("stake", sdk.NewInt(1_000_000)), sdk.NewCoin("ujuno", sdk.NewInt(100_000_000))))
+	_ = s.FundAccount(s.ctx, sender, sdk.NewCoins(sdk.NewCoin("stake", sdk.NewInt(1_000_000)), sdk.NewCoin("ufury", sdk.NewInt(100_000_000))))
 
 	// Instantiate the contractAddr
 	contractAddr := s.InstantiateContract(sender.String(), "")
@@ -178,7 +178,7 @@ func (s *IntegrationTestSuite) TestQueryEligibility() {
 	_, err := s.app.AppKeepers.FeePayKeeper.FundFeePayContract(s.ctx, &types.MsgFundFeePayContract{
 		SenderAddress:   sender.String(),
 		ContractAddress: contractAddr,
-		Amount:          sdk.NewCoins(sdk.NewCoin("ujuno", sdk.NewInt(1_000_000))),
+		Amount:          sdk.NewCoins(sdk.NewCoin("ufury", sdk.NewInt(1_000_000))),
 	})
 	s.Require().NoError(err)
 

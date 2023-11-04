@@ -5,21 +5,21 @@ import (
 )
 
 const (
-	// DefaultJunoInstanceCost is initially set the same as in wasmd
-	DefaultJunoInstanceCost uint64 = 60_000
-	// DefaultJunoCompileCost set to a large number for testing
-	DefaultJunoCompileCost uint64 = 3
+	// DefaultFuryaInstanceCost is initially set the same as in wasmd
+	DefaultFuryaInstanceCost uint64 = 60_000
+	// DefaultFuryaCompileCost set to a large number for testing
+	DefaultFuryaCompileCost uint64 = 3
 )
 
-// JunoGasRegisterConfig is defaults plus a custom compile amount
-func JunoGasRegisterConfig() wasmtypes.WasmGasRegisterConfig {
+// FuryaGasRegisterConfig is defaults plus a custom compile amount
+func FuryaGasRegisterConfig() wasmtypes.WasmGasRegisterConfig {
 	gasConfig := wasmtypes.DefaultGasRegisterConfig()
-	gasConfig.InstanceCost = DefaultJunoInstanceCost
-	gasConfig.CompileCost = DefaultJunoCompileCost
+	gasConfig.InstanceCost = DefaultFuryaInstanceCost
+	gasConfig.CompileCost = DefaultFuryaCompileCost
 
 	return gasConfig
 }
 
-func NewJunoWasmGasRegister() wasmtypes.WasmGasRegister {
-	return wasmtypes.NewWasmGasRegister(JunoGasRegisterConfig())
+func NewFuryaWasmGasRegister() wasmtypes.WasmGasRegister {
+	return wasmtypes.NewWasmGasRegister(FuryaGasRegisterConfig())
 }

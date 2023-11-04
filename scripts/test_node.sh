@@ -1,21 +1,21 @@
 #!/bin/bash
-# Run this script to quickly install, setup, and run the current version of juno without docker.
+# Run this script to quickly install, setup, and run the current version of furya without docker.
 #
 # Example:
-# CHAIN_ID="local-1" HOME_DIR="~/.juno1" TIMEOUT_COMMIT="500ms" CLEAN=true sh scripts/test_node.sh
-# CHAIN_ID="local-2" HOME_DIR="~/.juno2" CLEAN=true RPC=36657 REST=2317 PROFF=6061 P2P=36656 GRPC=8090 GRPC_WEB=8091 ROSETTA=8081 TIMEOUT_COMMIT="500ms" sh scripts/test_node.sh
+# CHAIN_ID="local-1" HOME_DIR="~/.furya1" TIMEOUT_COMMIT="500ms" CLEAN=true sh scripts/test_node.sh
+# CHAIN_ID="local-2" HOME_DIR="~/.furya2" CLEAN=true RPC=36657 REST=2317 PROFF=6061 P2P=36656 GRPC=8090 GRPC_WEB=8091 ROSETTA=8081 TIMEOUT_COMMIT="500ms" sh scripts/test_node.sh
 #
 # To use unoptomized wasm files up to ~5mb, add: MAX_WASM_SIZE=5000000
 
-export KEY="juno1"
-export KEY2="juno2"
+export KEY="furya1"
+export KEY2="furya2"
 
 export CHAIN_ID=${CHAIN_ID:-"local-1"}
-export MONIKER="localjuno"
+export MONIKER="localfurya"
 export KEYALGO="secp256k1"
 export KEYRING=${KEYRING:-"test"}
-export HOME_DIR=$(eval echo "${HOME_DIR:-"~/.juno"}")
-export BINARY=${BINARY:-junod}
+export HOME_DIR=$(eval echo "${HOME_DIR:-"~/.furya"}")
+export BINARY=${BINARY:-furyad}
 
 export CLEAN=${CLEAN:-"false"}
 export RPC=${RPC:-"26657"}
@@ -42,12 +42,12 @@ from_scratch () {
   # remove existing daemon.
   rm -rf $HOME_DIR && echo "Removed $HOME_DIR"  
   
-  # juno1efd63aw40lxf3n4mhf7dzhjkr453axurv2zdzk
+  # furya1efd63aw40lxf3n4mhf7dzhjkr453axurv2zdzk
   echo "decorate bright ozone fork gallery riot bus exhaust worth way bone indoor calm squirrel merry zero scheme cotton until shop any excess stage laundry" | BINARY keys add $KEY --keyring-backend $KEYRING --algo $KEYALGO --recover
-  # juno1hj5fveer5cjtn4wd6wstzugjfdxzl0xps73ftl
+  # furya1hj5fveer5cjtn4wd6wstzugjfdxzl0xps73ftl
   echo "wealth flavor believe regret funny network recall kiss grape useless pepper cram hint member few certain unveil rather brick bargain curious require crowd raise" | BINARY keys add $KEY2 --keyring-backend $KEYRING --algo $KEYALGO --recover
   
-  BINARY init $MONIKER --chain-id $CHAIN_ID --default-denom ujuno
+  BINARY init $MONIKER --chain-id $CHAIN_ID --default-denom ufury
 
   # Function updates the config based on a jq argument as a string
   update_test_genesis () {    
@@ -57,52 +57,52 @@ from_scratch () {
   # Block
   update_test_genesis '.consensus_params["block"]["max_gas"]="100000000"'
   # Gov
-  update_test_genesis '.app_state["gov"]["params"]["min_deposit"]=[{"denom": "ujuno","amount": "1000000"}]'
+  update_test_genesis '.app_state["gov"]["params"]["min_deposit"]=[{"denom": "ufury","amount": "1000000"}]'
   update_test_genesis '.app_state["gov"]["voting_params"]["voting_period"]="15s"'
   # staking
-  update_test_genesis '.app_state["staking"]["params"]["bond_denom"]="ujuno"'  
+  update_test_genesis '.app_state["staking"]["params"]["bond_denom"]="ufury"'  
   update_test_genesis '.app_state["staking"]["params"]["min_commission_rate"]="0.050000000000000000"'  
   # mint
-  update_test_genesis '.app_state["mint"]["params"]["mint_denom"]="ujuno"'  
+  update_test_genesis '.app_state["mint"]["params"]["mint_denom"]="ufury"'  
   # crisis
-  update_test_genesis '.app_state["crisis"]["constant_fee"]={"denom": "ujuno","amount": "1000"}'  
+  update_test_genesis '.app_state["crisis"]["constant_fee"]={"denom": "ufury","amount": "1000"}'  
 
   # Custom Modules
   # GlobalFee
-  update_test_genesis '.app_state["globalfee"]["params"]["minimum_gas_prices"]=[{"amount":"0.002500000000000000","denom":"ujuno"}]'
+  update_test_genesis '.app_state["globalfee"]["params"]["minimum_gas_prices"]=[{"amount":"0.002500000000000000","denom":"ufury"}]'
   # Drip
-  update_test_genesis '.app_state["drip"]["params"]["allowed_addresses"]=["juno1hj5fveer5cjtn4wd6wstzugjfdxzl0xps73ftl","juno1efd63aw40lxf3n4mhf7dzhjkr453axurv2zdzk"]'
+  update_test_genesis '.app_state["drip"]["params"]["allowed_addresses"]=["furya1hj5fveer5cjtn4wd6wstzugjfdxzl0xps73ftl","furya1efd63aw40lxf3n4mhf7dzhjkr453axurv2zdzk"]'
   # Clock
-  # update_test_genesis '.app_state["clock"]["params"]["contract_addresses"]=["juno14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8"]'
+  # update_test_genesis '.app_state["clock"]["params"]["contract_addresses"]=["furya14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9skjuwg8"]'
   
   # TokenFactory
-  # update_test_genesis '.app_state["tokenfactory"]["params"]["denom_creation_fee"]=[{"denom":"ujuno","amount":"100"}]'
+  # update_test_genesis '.app_state["tokenfactory"]["params"]["denom_creation_fee"]=[{"denom":"ufury","amount":"100"}]'
   update_test_genesis '.app_state["tokenfactory"]["params"]["denom_creation_fee"]=[]'
   update_test_genesis '.app_state["tokenfactory"]["params"]["denom_creation_gas_consume"]=2000000'
 
   # FeeShare
-  update_test_genesis '.app_state["feeshare"]["params"]["allowed_denoms"]=["ujuno"]'
+  update_test_genesis '.app_state["feeshare"]["params"]["allowed_denoms"]=["ufury"]'
 
   # Builder keeper genesis state	
 	update_test_genesis '.app_state["builder"]["params"]["front_running_protection"]=false'
 	update_test_genesis '.app_state["builder"]["params"]["max_bundle_size"]="4"'
-	update_test_genesis '.app_state["builder"]["params"]["min_bid_increment"]["denom"]="ujuno"'
+	update_test_genesis '.app_state["builder"]["params"]["min_bid_increment"]["denom"]="ufury"'
 	update_test_genesis '.app_state["builder"]["params"]["min_bid_increment"]["amount"]="1000000"'
-	update_test_genesis '.app_state["builder"]["params"]["reserve_fee"]["denom"]="ujuno"'
+	update_test_genesis '.app_state["builder"]["params"]["reserve_fee"]["denom"]="ufury"'
 	update_test_genesis '.app_state["builder"]["params"]["reserve_fee"]["amount"]="1000000"'
 
   # Allocate genesis accounts
-  BINARY genesis add-genesis-account $KEY 10000000ujuno,1000utest --keyring-backend $KEYRING
-  BINARY genesis add-genesis-account $KEY2 1000000ujuno,1000utest --keyring-backend $KEYRING
-  BINARY genesis add-genesis-account juno1see0htr47uapjvcvh0hu6385rp8lw3emu85lh5 100000000000ujuno --keyring-backend $KEYRING
-  # BINARY genesis add-genesis-account juno1xgj5vkjknnvwu3je3usm2fasvr6a9ust9q7gxm 100000000000ujuno --keyring-backend $KEYRING # feeprepay
+  BINARY genesis add-genesis-account $KEY 10000000ufury,1000utest --keyring-backend $KEYRING
+  BINARY genesis add-genesis-account $KEY2 1000000ufury,1000utest --keyring-backend $KEYRING
+  BINARY genesis add-genesis-account furya1see0htr47uapjvcvh0hu6385rp8lw3emu85lh5 100000000000ufury --keyring-backend $KEYRING
+  # BINARY genesis add-genesis-account furya1xgj5vkjknnvwu3je3usm2fasvr6a9ust9q7gxm 100000000000ufury --keyring-backend $KEYRING # feeprepay
 
-  BINARY genesis gentx $KEY 1000000ujuno --keyring-backend $KEYRING --chain-id $CHAIN_ID
+  BINARY genesis gentx $KEY 1000000ufury --keyring-backend $KEYRING --chain-id $CHAIN_ID
 
   # Collect genesis tx
   BINARY genesis collect-gentxs
 
-  # Run this to ensure junorything worked and that the genesis file is setup correctly
+  # Run this to ensure furyarything worked and that the genesis file is setup correctly
   BINARY genesis validate-genesis
 }
 
@@ -139,4 +139,4 @@ sed -i 's/address = ":8080"/address = "0.0.0.0:'$ROSETTA'"/g' $HOME_DIR/config/a
 sed -i 's/timeout_commit = "5s"/timeout_commit = "'$TIMEOUT_COMMIT'"/g' $HOME_DIR/config/config.toml
 
 # Start the node with 0 gas fees
-BINARY start --pruning=nothing  --minimum-gas-prices=0.0025ujuno --rpc.laddr="tcp://0.0.0.0:$RPC"
+BINARY start --pruning=nothing  --minimum-gas-prices=0.0025ufury --rpc.laddr="tcp://0.0.0.0:$RPC"

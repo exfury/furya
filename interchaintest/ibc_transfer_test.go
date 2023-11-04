@@ -17,23 +17,23 @@ import (
 	transfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
 )
 
-// TestJunoGaiaIBCTransfer spins up a Juno and Gaia network, initializes an IBC connection between them,
-// and sends an ICS20 token transfer from Juno->Gaia and then back from Gaia->Juno.
-func TestJunoGaiaIBCTransfer(t *testing.T) {
+// TestFuryaGaiaIBCTransfer spins up a Furya and Gaia network, initializes an IBC connection between them,
+// and sends an ICS20 token transfer from Furya->Gaia and then back from Gaia->Furya.
+func TestFuryaGaiaIBCTransfer(t *testing.T) {
 	if testing.Short() {
 		t.Skip()
 	}
 
 	t.Parallel()
 
-	// Create chain factory with Juno and Gaia
+	// Create chain factory with Furya and Gaia
 	numVals := 1
 	numFullNodes := 1
 
 	cf := interchaintest.NewBuiltinChainFactory(zaptest.NewLogger(t), []*interchaintest.ChainSpec{
 		{
-			Name:          "juno",
-			ChainConfig:   junoConfig,
+			Name:          "furya",
+			ChainConfig:   furyaConfig,
 			NumValidators: &numVals,
 			NumFullNodes:  &numFullNodes,
 		},
@@ -55,7 +55,7 @@ func TestJunoGaiaIBCTransfer(t *testing.T) {
 
 	client, network := interchaintest.DockerSetup(t)
 
-	juno, gaia := chains[0].(*cosmos.CosmosChain), chains[1].(*cosmos.CosmosChain)
+	furya, gaia := chains[0].(*cosmos.CosmosChain), chains[1].(*cosmos.CosmosChain)
 
 	relayerType, relayerName := ibc.CosmosRly, "relay"
 
@@ -70,11 +70,11 @@ func TestJunoGaiaIBCTransfer(t *testing.T) {
 	r := rf.Build(t, client, network)
 
 	ic := interchaintest.NewInterchain().
-		AddChain(juno).
+		AddChain(furya).
 		AddChain(gaia).
 		AddRelayer(r, relayerName).
 		AddLink(interchaintest.InterchainLink{
-			Chain1:  juno,
+			Chain1:  furya,
 			Chain2:  gaia,
 			Relayer: r,
 			Path:    path,
@@ -97,42 +97,42 @@ func TestJunoGaiaIBCTransfer(t *testing.T) {
 	})
 
 	// Create some user accounts on both chains
-	users := interchaintest.GetAndFundTestUsers(t, ctx, t.Name(), genesisWalletAmount, juno, gaia)
+	users := interchaintest.GetAndFundTestUsers(t, ctx, t.Name(), genesisWalletAmount, furya, gaia)
 
 	// Wait a few blocks for relayer to start and for user accounts to be created
-	err = testutil.WaitForBlocks(ctx, 5, juno, gaia)
+	err = testutil.WaitForBlocks(ctx, 5, furya, gaia)
 	require.NoError(t, err)
 
 	// Get our Bech32 encoded user addresses
-	junoUser, gaiaUser := users[0], users[1]
+	furyaUser, gaiaUser := users[0], users[1]
 
-	junoUserAddr := junoUser.FormattedAddress()
+	furyaUserAddr := furyaUser.FormattedAddress()
 	gaiaUserAddr := gaiaUser.FormattedAddress()
 
 	// Get original account balances
-	junoOrigBal, err := juno.GetBalance(ctx, junoUserAddr, juno.Config().Denom)
+	furyaOrigBal, err := furya.GetBalance(ctx, furyaUserAddr, furya.Config().Denom)
 	require.NoError(t, err)
-	require.Equal(t, genesisWalletAmount, junoOrigBal.Int64())
+	require.Equal(t, genesisWalletAmount, furyaOrigBal.Int64())
 
 	gaiaOrigBal, err := gaia.GetBalance(ctx, gaiaUserAddr, gaia.Config().Denom)
 	require.NoError(t, err)
 	require.Equal(t, genesisWalletAmount, gaiaOrigBal.Int64())
 
-	// Compose an IBC transfer and send from Juno -> Gaia
+	// Compose an IBC transfer and send from Furya -> Gaia
 	var transferAmount = math.NewInt(1_000)
 	transfer := ibc.WalletAmount{
 		Address: gaiaUserAddr,
-		Denom:   juno.Config().Denom,
+		Denom:   furya.Config().Denom,
 		Amount:  transferAmount,
 	}
 
-	channel, err := ibc.GetTransferChannel(ctx, r, eRep, juno.Config().ChainID, gaia.Config().ChainID)
+	channel, err := ibc.GetTransferChannel(ctx, r, eRep, furya.Config().ChainID, gaia.Config().ChainID)
 	require.NoError(t, err)
 
-	junoHeight, err := juno.Height(ctx)
+	furyaHeight, err := furya.Height(ctx)
 	require.NoError(t, err)
 
-	transferTx, err := juno.SendIBCTransfer(ctx, channel.ChannelID, junoUserAddr, transfer, ibc.TransferOptions{})
+	transferTx, err := furya.SendIBCTransfer(ctx, channel.ChannelID, furyaUserAddr, transfer, ibc.TransferOptions{})
 	require.NoError(t, err)
 
 	err = r.StartRelayer(ctx, eRep, path)
@@ -148,29 +148,29 @@ func TestJunoGaiaIBCTransfer(t *testing.T) {
 	)
 
 	// Poll for the ack to know the transfer was successful
-	_, err = testutil.PollForAck(ctx, juno, junoHeight, junoHeight+50, transferTx.Packet)
+	_, err = testutil.PollForAck(ctx, furya, furyaHeight, furyaHeight+50, transferTx.Packet)
 	require.NoError(t, err)
 
-	err = testutil.WaitForBlocks(ctx, 10, juno)
+	err = testutil.WaitForBlocks(ctx, 10, furya)
 	require.NoError(t, err)
 
-	// Get the IBC denom for ujuno on Gaia
-	junoTokenDenom := transfertypes.GetPrefixedDenom(channel.Counterparty.PortID, channel.Counterparty.ChannelID, juno.Config().Denom)
-	junoIBCDenom := transfertypes.ParseDenomTrace(junoTokenDenom).IBCDenom()
+	// Get the IBC denom for ufury on Gaia
+	furyaTokenDenom := transfertypes.GetPrefixedDenom(channel.Counterparty.PortID, channel.Counterparty.ChannelID, furya.Config().Denom)
+	furyaIBCDenom := transfertypes.ParseDenomTrace(furyaTokenDenom).IBCDenom()
 
-	// Assert that the funds are no longer present in user acc on Juno and are in the user acc on Gaia
-	junoUpdateBal, err := juno.GetBalance(ctx, junoUserAddr, juno.Config().Denom)
+	// Assert that the funds are no longer present in user acc on Furya and are in the user acc on Gaia
+	furyaUpdateBal, err := furya.GetBalance(ctx, furyaUserAddr, furya.Config().Denom)
 	require.NoError(t, err)
-	require.Equal(t, junoOrigBal.Sub(transferAmount), junoUpdateBal)
+	require.Equal(t, furyaOrigBal.Sub(transferAmount), furyaUpdateBal)
 
-	gaiaUpdateBal, err := gaia.GetBalance(ctx, gaiaUserAddr, junoIBCDenom)
+	gaiaUpdateBal, err := gaia.GetBalance(ctx, gaiaUserAddr, furyaIBCDenom)
 	require.NoError(t, err)
 	require.Equal(t, transferAmount, gaiaUpdateBal)
 
-	// Compose an IBC transfer and send from Gaia -> Juno
+	// Compose an IBC transfer and send from Gaia -> Furya
 	transfer = ibc.WalletAmount{
-		Address: junoUserAddr,
-		Denom:   junoIBCDenom,
+		Address: furyaUserAddr,
+		Denom:   furyaIBCDenom,
 		Amount:  transferAmount,
 	}
 
@@ -184,12 +184,12 @@ func TestJunoGaiaIBCTransfer(t *testing.T) {
 	_, err = testutil.PollForAck(ctx, gaia, gaiaHeight, gaiaHeight+25, transferTx.Packet)
 	require.NoError(t, err)
 
-	// Assert that the funds are now back on Juno and not on Gaia
-	junoUpdateBal, err = juno.GetBalance(ctx, junoUserAddr, juno.Config().Denom)
+	// Assert that the funds are now back on Furya and not on Gaia
+	furyaUpdateBal, err = furya.GetBalance(ctx, furyaUserAddr, furya.Config().Denom)
 	require.NoError(t, err)
-	require.Equal(t, junoOrigBal, junoUpdateBal)
+	require.Equal(t, furyaOrigBal, furyaUpdateBal)
 
-	gaiaUpdateBal, err = gaia.GetBalance(ctx, gaiaUserAddr, junoIBCDenom)
+	gaiaUpdateBal, err = gaia.GetBalance(ctx, gaiaUserAddr, furyaIBCDenom)
 	require.NoError(t, err)
 	require.Equal(t, int64(0), gaiaUpdateBal.Int64())
 }

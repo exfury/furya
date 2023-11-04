@@ -8,7 +8,7 @@ order: 0
 
 The minting mechanism was designed to:
 
-- allow for a inflation rate determined by Juno Tokenemics
+- allow for a inflation rate determined by Furya Tokenemics
 
 It can be broken down in the following way:
 

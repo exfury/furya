@@ -1,11 +1,11 @@
 # This file is used to create docker images using the heighliner binary.
 # see: https://github.com/strangelove-ventures/heighliner
 
-- name: juno
+- name: furya
   dockerfile: cosmos
   build-target: make install
   binaries:
-    - /go/bin/junod
+    - /go/bin/furyad
   build-env:
     - LEDGER_ENABLED=false
     - BUILD_TAGS=muslc

@@ -1,5 +1,5 @@
 package burn
 
 const (
-	ModuleName = "junoburn"
+	ModuleName = "furyaburn"
 )

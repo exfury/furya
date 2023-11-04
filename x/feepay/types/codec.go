@@ -24,10 +24,10 @@ var (
 
 const (
 	// Amino names
-	registerFeePayContract   = "juno/MsgRegisterFeePayContract"
-	unregisterFeePayContract = "juno/MsgUnregisterFeePayContract"
-	fundFeePayContract       = "juno/MsgFundFeePayContract"
-	updateFeeShareParams     = "juno/MsgFeePayUpdateParams"
+	registerFeePayContract   = "furya/MsgRegisterFeePayContract"
+	unregisterFeePayContract = "furya/MsgUnregisterFeePayContract"
+	fundFeePayContract       = "furya/MsgFundFeePayContract"
+	updateFeeShareParams     = "furya/MsgFeePayUpdateParams"
 )
 
 // NOTE: This is required for the GetSignBytes function

@@ -10,7 +10,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/CosmosContracts/juno/v18/app/keepers"
+	"github.com/CosmosContracts/furya/v18/app/keepers"
 )
 
 // BaseAppParamManager defines an interrace that BaseApp is expected to fullfil
@@ -39,10 +39,10 @@ type Upgrade struct {
 	StoreUpgrades store.StoreUpgrades
 }
 
-// Returns "ujunox" if the chain is uni, else returns the standard ujuno token denom.
+// Returns "ufuryx" if the chain is uni, else returns the standard ufury token denom.
 func GetChainsDenomToken(chainID string) string {
 	if strings.HasPrefix(chainID, "uni-") {
-		return "ujunox"
+		return "ufuryx"
 	}
-	return "ujuno"
+	return "ufury"
 }

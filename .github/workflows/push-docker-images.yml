@@ -1,18 +1,18 @@
-# This workflow pushes new juno docker images on every new tag.
+# This workflow pushes new furya docker images on every new tag.
 #
 # On every new `vX.Y.Z` tag the following images are pushed:
 #
-# cosmoscontracts/juno:vX.Y.Z   # is pushed
-# cosmoscontracts/juno:X.Y.Z    # is pushed
-# cosmoscontracts/juno:X.Y      # is updated to X.Y.Z
-# cosmoscontracts/juno:X        # is updated to X.Y.Z
-# cosmoscontracts/juno:latest   # is updated to X.Y.Z
+# cosmoscontracts/furya:vX.Y.Z   # is pushed
+# cosmoscontracts/furya:X.Y.Z    # is pushed
+# cosmoscontracts/furya:X.Y      # is updated to X.Y.Z
+# cosmoscontracts/furya:X        # is updated to X.Y.Z
+# cosmoscontracts/furya:latest   # is updated to X.Y.Z
 #
-# cosmoscontracts/juno-e2e:vX.Y.Z   # is pushed
-# cosmoscontracts/juno-e2e:X.Y.Z    # is pushed
-# cosmoscontracts/juno-e2e:X.Y      # is updated to X.Y.Z
-# cosmoscontracts/juno-e2e:X        # is updated to X.Y.Z
-# cosmoscontracts/juno-e2e:latest   # is updated to X.Y.Z
+# cosmoscontracts/furya-e2e:vX.Y.Z   # is pushed
+# cosmoscontracts/furya-e2e:X.Y.Z    # is pushed
+# cosmoscontracts/furya-e2e:X.Y      # is updated to X.Y.Z
+# cosmoscontracts/furya-e2e:X        # is updated to X.Y.Z
+# cosmoscontracts/furya-e2e:latest   # is updated to X.Y.Z
 #
 # All the images above have support for linux/amd64 and linux/arm64.
 #
@@ -29,7 +29,7 @@ on:
     - 'v[0-9]+.[0-9]+.[0-9]+' # ignore rc
 
 jobs:
-  juno-images:
+  furya-images:
     runs-on: ubuntu-latest
     steps:
       - 
@@ -69,7 +69,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/cosmoscontracts/juno:${{ env.MAJOR_VERSION }}
-            ghcr.io/cosmoscontracts/juno:${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}
-            ghcr.io/cosmoscontracts/juno:${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.PATCH_VERSION }}
-            ghcr.io/cosmoscontracts/juno:v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.PATCH_VERSION }}
+            ghcr.io/cosmoscontracts/furya:${{ env.MAJOR_VERSION }}
+            ghcr.io/cosmoscontracts/furya:${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}
+            ghcr.io/cosmoscontracts/furya:${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.PATCH_VERSION }}
+            ghcr.io/cosmoscontracts/furya:v${{ env.MAJOR_VERSION }}.${{ env.MINOR_VERSION }}.${{ env.PATCH_VERSION }}

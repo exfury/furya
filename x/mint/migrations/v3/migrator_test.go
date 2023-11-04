@@ -9,10 +9,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	moduletestutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 
-	"github.com/CosmosContracts/juno/v18/x/mint"
-	"github.com/CosmosContracts/juno/v18/x/mint/exported"
-	v3 "github.com/CosmosContracts/juno/v18/x/mint/migrations/v3"
-	"github.com/CosmosContracts/juno/v18/x/mint/types"
+	"github.com/CosmosContracts/furya/v18/x/mint"
+	"github.com/CosmosContracts/furya/v18/x/mint/exported"
+	v3 "github.com/CosmosContracts/furya/v18/x/mint/migrations/v3"
+	"github.com/CosmosContracts/furya/v18/x/mint/types"
 )
 
 type mockSubspace struct {
@@ -37,10 +37,10 @@ func TestMigrateMainet(t *testing.T) {
 	store := ctx.KVStore(storeKey)
 
 	legacySubspace := newMockSubspace(types.Params{
-		MintDenom:     "ujuno",
+		MintDenom:     "ufury",
 		BlocksPerYear: 5048093,
 	})
-	require.NoError(t, v3.Migrate(ctx, store, cdc, "ujuno"))
+	require.NoError(t, v3.Migrate(ctx, store, cdc, "ufury"))
 
 	var res types.Params
 	bz := store.Get(v3.ParamsKey)
@@ -58,10 +58,10 @@ func TestMigrateTestnet(t *testing.T) {
 	store := ctx.KVStore(storeKey)
 
 	legacySubspace := newMockSubspace(types.Params{
-		MintDenom:     "ujunox",
+		MintDenom:     "ufuryx",
 		BlocksPerYear: 5048093,
 	})
-	require.NoError(t, v3.Migrate(ctx, store, cdc, "ujunox"))
+	require.NoError(t, v3.Migrate(ctx, store, cdc, "ufuryx"))
 
 	var res types.Params
 	bz := store.Get(v3.ParamsKey)

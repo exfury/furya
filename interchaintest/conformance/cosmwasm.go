@@ -1,10 +1,10 @@
-package junoconformance
+package furyaconformance
 
 import (
 	"context"
 	"testing"
 
-	"github.com/CosmosContracts/juno/tests/interchaintest/helpers"
+	"github.com/CosmosContracts/furya/tests/interchaintest/helpers"
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
 	"github.com/strangelove-ventures/interchaintest/v7/ibc"
 	"github.com/stretchr/testify/require"

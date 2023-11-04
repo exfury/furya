@@ -1,5 +1,5 @@
-# docker build . -t cosmoscontracts/juno:latest
-# docker run --rm -it cosmoscontracts/juno:latest /bin/sh
+# docker build . -t cosmoscontracts/furya:latest
+# docker run --rm -it cosmoscontracts/furya:latest /bin/sh
 FROM golang:1.21-alpine AS go-builder
 
 # this comes from standard alpine nightly file
@@ -29,17 +29,17 @@ RUN set -eux; \
 COPY . /code/
 
 # force it to use static lib (from above) not standard libgo_cosmwasm.so file
-# then log output of file /code/bin/junod
+# then log output of file /code/bin/furyad
 # then ensure static linking
 RUN LEDGER_ENABLED=false BUILD_TAGS=muslc LINK_STATICALLY=true make build \
-  && file /code/bin/junod \
+  && file /code/bin/furyad \
   && echo "Ensuring binary is statically linked ..." \
-  && (file /code/bin/junod | grep "statically linked")
+  && (file /code/bin/furyad | grep "statically linked")
 
 # --------------------------------------------------------
 FROM alpine:3.16
 
-COPY --from=go-builder /code/bin/junod /usr/bin/junod
+COPY --from=go-builder /code/bin/furyad /usr/bin/furyad
 
 COPY docker/* /opt/
 RUN chmod +x /opt/*.sh
@@ -49,4 +49,4 @@ WORKDIR /opt
 # rest server, tendermint p2p, tendermint rpc
 EXPOSE 1317 26656 26657
 
-CMD ["/usr/bin/junod", "version"]
+CMD ["/usr/bin/furyad", "version"]

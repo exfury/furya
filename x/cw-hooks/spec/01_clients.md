@@ -2,10 +2,10 @@
 
 ## Command Line Interface
 
-Find below a list of `junod` commands added with the `x/cw-hooks` module. You can obtain the full list by using the `junod -h` command. A CLI command can look like this:
+Find below a list of `furyad` commands added with the `x/cw-hooks` module. You can obtain the full list by using the `furyad -h` command. A CLI command can look like this:
 
 ```bash
-junod query cw-hooks params
+furyad query cw-hooks params
 ```
 
 ### Queries
@@ -27,22 +27,22 @@ junod query cw-hooks params
 
 | Verb   | Method                                            |
 | :----- | :------------------------------------------------ |
-| `gRPC` | `juno.cwhooks.v1.Query/Params`                    |
-| `gRPC` | `juno.cwhooks.v1.Query/StakingContracts`          |
-| `gRPC` | `juno.cwhooks.v1.Query/GovernanceContracts`       |
-| `GET`  | `/juno/cwhooks/v1/params`                         |
-| `GET`  | `/juno/cwhooks/v1/staking_contracts`              |
-| `GET`  | `/juno/cwhooks/v1/governance_contracts`           |
+| `gRPC` | `furya.cwhooks.v1.Query/Params`                    |
+| `gRPC` | `furya.cwhooks.v1.Query/StakingContracts`          |
+| `gRPC` | `furya.cwhooks.v1.Query/GovernanceContracts`       |
+| `GET`  | `/furya/cwhooks/v1/params`                         |
+| `GET`  | `/furya/cwhooks/v1/staking_contracts`              |
+| `GET`  | `/furya/cwhooks/v1/governance_contracts`           |
 
 ### gRPC Transactions
 
 | Verb   | Method                                      |
 | :----- | :------------------------------------------ |
-| `gRPC` | `juno.cwhooks.v1.Msg/RegisterStaking`       |
-| `gRPC` | `juno.cwhooks.v1.Msg/UnregisterStaking`     |
-| `gRPC` | `juno.cwhooks.v1.Msg/RegisterGovernance`    |
-| `gRPC` | `juno.cwhooks.v1.Msg/UnregisterGovernance`  |
-| `POST` | `/juno/cwhooks/v1/tx/register_staking`      |
-| `POST` | `/juno/cwhooks/v1/tx/unregister_staking`    |
-| `POST` | `/juno/cwhooks/v1/tx/register_governance`   |
-| `POST` | `/juno/cwhooks/v1/tx/unregister_governance` |
+| `gRPC` | `furya.cwhooks.v1.Msg/RegisterStaking`       |
+| `gRPC` | `furya.cwhooks.v1.Msg/UnregisterStaking`     |
+| `gRPC` | `furya.cwhooks.v1.Msg/RegisterGovernance`    |
+| `gRPC` | `furya.cwhooks.v1.Msg/UnregisterGovernance`  |
+| `POST` | `/furya/cwhooks/v1/tx/register_staking`      |
+| `POST` | `/furya/cwhooks/v1/tx/unregister_staking`    |
+| `POST` | `/furya/cwhooks/v1/tx/register_governance`   |
+| `POST` | `/furya/cwhooks/v1/tx/unregister_governance` |

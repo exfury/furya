@@ -101,7 +101,7 @@ func (msg MsgFundFeePayContract) ValidateBasic() error {
 	}
 
 	if len(msg.Amount) != 1 {
-		return ErrInvalidJunoFundAmount
+		return ErrInvalidFuryaFundAmount
 	}
 
 	return nil

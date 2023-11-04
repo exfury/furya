@@ -9,7 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	"github.com/CosmosContracts/juno/v18/x/cw-hooks/types"
+	"github.com/CosmosContracts/furya/v18/x/cw-hooks/types"
 )
 
 func (s *IntegrationTestSuite) TestRegisterContracts() {
@@ -209,7 +209,7 @@ func (s *IntegrationTestSuite) TestUnRegisterContracts() {
 func (s *IntegrationTestSuite) TestContractExecution() {
 	s.SetupTest()
 	_, _, sender := testdata.KeyTestPubAddr()
-	coin := sdk.NewCoins(sdk.NewCoin("stake", sdk.NewInt(10_000_000)), sdk.NewCoin("ujuno", sdk.NewInt(10_000_000)))
+	coin := sdk.NewCoins(sdk.NewCoin("stake", sdk.NewInt(10_000_000)), sdk.NewCoin("ufury", sdk.NewInt(10_000_000)))
 	_ = s.FundAccount(s.ctx, sender, coin)
 
 	contractAddress := s.InstantiateContract(sender.String(), "")

@@ -7,12 +7,12 @@ import (
 	"github.com/strangelove-ventures/interchaintest/v7"
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
 
-	helpers "github.com/CosmosContracts/juno/tests/interchaintest/helpers"
+	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
 )
 
-// TestJunoUnityContractDeploy test to ensure the contract withdraw function works as expected on chain.
+// TestFuryaUnityContractDeploy test to ensure the contract withdraw function works as expected on chain.
 // - https://github.com/CosmosContracts/cw-unity-prop
-func TestJunoUnityContractDeploy(t *testing.T) {
+func TestFuryaUnityContractDeploy(t *testing.T) {
 	t.Parallel()
 
 	// Base setup
@@ -20,11 +20,11 @@ func TestJunoUnityContractDeploy(t *testing.T) {
 	ic, ctx, _, _ := BuildInitialChain(t, chains)
 
 	// Chains
-	juno := chains[0].(*cosmos.CosmosChain)
-	nativeDenom := juno.Config().Denom
+	furya := chains[0].(*cosmos.CosmosChain)
+	nativeDenom := furya.Config().Denom
 
 	// Users
-	users := interchaintest.GetAndFundTestUsers(t, ctx, "default", int64(10_000_000), juno, juno)
+	users := interchaintest.GetAndFundTestUsers(t, ctx, "default", int64(10_000_000), furya, furya)
 	user := users[0]
 	withdrawUser := users[1]
 	withdrawAddr := withdrawUser.FormattedAddress()
@@ -32,14 +32,14 @@ func TestJunoUnityContractDeploy(t *testing.T) {
 	// TEST DEPLOY (./scripts/deploy_ci.sh)
 	// Upload & init unity contract with no admin in test mode
 	msg := fmt.Sprintf(`{"native_denom":"%s","withdraw_address":"%s","withdraw_delay_in_days":28}`, nativeDenom, withdrawAddr)
-	_, contractAddr := helpers.SetupContract(t, ctx, juno, user.KeyName(), "contracts/cw_unity_prop.wasm", msg)
+	_, contractAddr := helpers.SetupContract(t, ctx, furya, user.KeyName(), "contracts/cw_unity_prop.wasm", msg)
 	t.Log("testing Unity contractAddr", contractAddr)
 
 	// Execute to start the withdrawal countdown
-	juno.ExecuteContract(ctx, withdrawUser.KeyName(), contractAddr, `{"start_withdraw":{}}`)
+	furya.ExecuteContract(ctx, withdrawUser.KeyName(), contractAddr, `{"start_withdraw":{}}`)
 
 	// make a query with GetUnityContractWithdrawalReadyTime
-	res := helpers.GetUnityContractWithdrawalReadyTime(t, ctx, juno, contractAddr)
+	res := helpers.GetUnityContractWithdrawalReadyTime(t, ctx, furya, contractAddr)
 	t.Log("WithdrawalReadyTimestamp", res.Data.WithdrawalReadyTimestamp)
 
 	t.Cleanup(func() {

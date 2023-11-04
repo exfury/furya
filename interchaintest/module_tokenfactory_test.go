@@ -7,11 +7,11 @@ import (
 	"github.com/strangelove-ventures/interchaintest/v7"
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
 
-	helpers "github.com/CosmosContracts/juno/tests/interchaintest/helpers"
+	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
 )
 
-// TestJunoTokenFactory ensures the tokenfactory module & bindings work properly.
-func TestJunoTokenFactory(t *testing.T) {
+// TestFuryaTokenFactory ensures the tokenfactory module & bindings work properly.
+func TestFuryaTokenFactory(t *testing.T) {
 	t.Parallel()
 
 	// Base setup
@@ -19,32 +19,32 @@ func TestJunoTokenFactory(t *testing.T) {
 	ic, ctx, _, _ := BuildInitialChain(t, chains)
 
 	// Chains
-	juno := chains[0].(*cosmos.CosmosChain)
-	t.Log("juno.GetHostRPCAddress()", juno.GetHostRPCAddress())
+	furya := chains[0].(*cosmos.CosmosChain)
+	t.Log("furya.GetHostRPCAddress()", furya.GetHostRPCAddress())
 
-	users := interchaintest.GetAndFundTestUsers(t, ctx, "default", int64(10_000_000), juno, juno)
+	users := interchaintest.GetAndFundTestUsers(t, ctx, "default", int64(10_000_000), furya, furya)
 	user := users[0]
 	uaddr := user.FormattedAddress()
 
 	user2 := users[1]
 	uaddr2 := user2.FormattedAddress()
 
-	tfDenom := helpers.CreateTokenFactoryDenom(t, ctx, juno, user, "ictestdenom", fmt.Sprintf("0%s", Denom))
+	tfDenom := helpers.CreateTokenFactoryDenom(t, ctx, furya, user, "ictestdenom", fmt.Sprintf("0%s", Denom))
 	t.Log("tfDenom", tfDenom)
 
 	// mint
-	helpers.MintTokenFactoryDenom(t, ctx, juno, user, 100, tfDenom)
+	helpers.MintTokenFactoryDenom(t, ctx, furya, user, 100, tfDenom)
 	t.Log("minted tfDenom to user")
-	if balance, err := juno.GetBalance(ctx, uaddr, tfDenom); err != nil {
+	if balance, err := furya.GetBalance(ctx, uaddr, tfDenom); err != nil {
 		t.Fatal(err)
 	} else if balance.Int64() != 100 {
 		t.Fatal("balance not 100")
 	}
 
 	// mint-to
-	helpers.MintToTokenFactoryDenom(t, ctx, juno, user, user2, 70, tfDenom)
+	helpers.MintToTokenFactoryDenom(t, ctx, furya, user, user2, 70, tfDenom)
 	t.Log("minted tfDenom to user")
-	if balance, err := juno.GetBalance(ctx, uaddr2, tfDenom); err != nil {
+	if balance, err := furya.GetBalance(ctx, uaddr2, tfDenom); err != nil {
 		t.Fatal(err)
 	} else if balance.Int64() != 70 {
 		t.Fatal("balance not 70")
@@ -52,14 +52,14 @@ func TestJunoTokenFactory(t *testing.T) {
 
 	// This allows the uaddr here to mint tokens on behalf of the contract. Typically you only allow a contract here, but this is testing.
 	coreInitMsg := fmt.Sprintf(`{"allowed_mint_addresses":["%s"],"existing_denoms":["%s"]}`, uaddr, tfDenom)
-	_, coreTFContract := helpers.SetupContract(t, ctx, juno, user.KeyName(), "contracts/tokenfactory_core.wasm", coreInitMsg)
+	_, coreTFContract := helpers.SetupContract(t, ctx, furya, user.KeyName(), "contracts/tokenfactory_core.wasm", coreInitMsg)
 	t.Log("coreContract", coreTFContract)
 
 	// change admin to the contract
-	helpers.TransferTokenFactoryAdmin(t, ctx, juno, user, coreTFContract, tfDenom)
+	helpers.TransferTokenFactoryAdmin(t, ctx, furya, user, coreTFContract, tfDenom)
 
 	// ensure the admin is the contract
-	admin := helpers.GetTokenFactoryAdmin(t, ctx, juno, tfDenom)
+	admin := helpers.GetTokenFactoryAdmin(t, ctx, furya, tfDenom)
 	t.Log("admin", admin)
 	if admin != coreTFContract {
 		t.Fatal("admin not coreTFContract. Did not properly transfer.")
@@ -67,12 +67,12 @@ func TestJunoTokenFactory(t *testing.T) {
 
 	// Mint on the contract for the user to ensure mint bindings work.
 	mintMsg := fmt.Sprintf(`{"mint":{"address":"%s","denom":[{"denom":"%s","amount":"31"}]}}`, uaddr2, tfDenom)
-	if _, err := juno.ExecuteContract(ctx, user.KeyName(), coreTFContract, mintMsg); err != nil {
+	if _, err := furya.ExecuteContract(ctx, user.KeyName(), coreTFContract, mintMsg); err != nil {
 		t.Fatal(err)
 	}
 
 	// ensure uaddr2 has 31+70 = 101
-	if balance, err := juno.GetBalance(ctx, uaddr2, tfDenom); err != nil {
+	if balance, err := furya.GetBalance(ctx, uaddr2, tfDenom); err != nil {
 		t.Fatal(err)
 	} else if balance.Int64() != 101 {
 		t.Fatal("balance not 101")

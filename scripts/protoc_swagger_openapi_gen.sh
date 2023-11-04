@@ -43,7 +43,7 @@ for dir in $proto_dirs; do
   fi
 done
 
-# delete cosmos/mint path since juno uses its own module
+# delete cosmos/mint path since furya uses its own module
 rm -rf ./tmp-swagger-gen/cosmos/mint
 
 # Fix circular definition in cosmos/tx/v1beta1/service.swagger.json
@@ -68,8 +68,8 @@ for f in $files; do
     cp $f ./tmp-swagger-gen/_all/cosmwasm-$counter.json
   elif [[ "$f" =~ "osmosis" ]]; then
     cp $f ./tmp-swagger-gen/_all/osmosis-$counter.json
-  elif [[ "$f" =~ "juno" ]]; then
-    cp $f ./tmp-swagger-gen/_all/juno-$counter.json
+  elif [[ "$f" =~ "furya" ]]; then
+    cp $f ./tmp-swagger-gen/_all/furya-$counter.json
   elif [[ "$f" =~ "cosmos" ]]; then
     cp $f ./tmp-swagger-gen/_all/cosmos-$counter.json
   # elif [[ "$f" =~ "intertx" ]]; then

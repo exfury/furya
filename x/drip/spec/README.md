@@ -9,9 +9,9 @@ parent:
 
 ## Abstract
 
-This document specifies the internal `x/drip` module of Juno Network.
+This document specifies the internal `x/drip` module of Furya Network.
 
-The `x/drip` allows specific addresses (usually smart contracts) to send tokens to the fee_pool module in order to perform a live airdrop to Juno Stakers.
+The `x/drip` allows specific addresses (usually smart contracts) to send tokens to the fee_pool module in order to perform a live airdrop to Furya Stakers.
 
 It consists only on one new message `MsgDistributeTokens`, when called from an authorized address all the funds sent with it are distributed at the next block. 
 

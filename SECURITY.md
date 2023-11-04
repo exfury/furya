@@ -1,16 +1,16 @@
-# Juno bug reporting and feature requests
+# Furya bug reporting and feature requests
 
-The Juno core development team uses GitHub to manage feature requests and bugs. This is done via GitHub Issues.
+The Furya core development team uses GitHub to manage feature requests and bugs. This is done via GitHub Issues.
 
 ## Triage and progress 🔜
 
 Issues added to GitHub will be triaged as they come in.
 
-Tracking of in-flight issues will be done through the Juno Core project board, but of course we reserve the right to not make a public issue if there is a security implication in doing so.
+Tracking of in-flight issues will be done through the Furya Core project board, but of course we reserve the right to not make a public issue if there is a security implication in doing so.
 
 ## Feature request 🚀
 
-For a feature request, e.g. module inclusion, please make a GitHub issue. Clearly state your use case and what value it will bring to other users or developers on Juno.
+For a feature request, e.g. module inclusion, please make a GitHub issue. Clearly state your use case and what value it will bring to other users or developers on Furya.
 
 If it is something that can be handled by a param change, discuss it on Discord in the `#governance` channel, and consider a governance proposal.
 
@@ -38,18 +38,18 @@ We ask security researchers to keep vulnerabilities and communications around vu
 
 - Allow us a reasonable amount of time to correct or address security vulnerabilities.
 - Avoid exploiting any vulnerabilities that you discover.
-- Demonstrate good faith by not disrupting or degrading Juno’s network, data, or services.
+- Demonstrate good faith by not disrupting or degrading Furya’s network, data, or services.
 
 ### Vulnerability Disclosure Process
 
-Juno uses the following disclosure process:
+Furya uses the following disclosure process:
 
-- Once a security report is received, the Juno core development team works to verify the issue.
+- Once a security report is received, the Furya core development team works to verify the issue.
 - Patches are prepared for eligible releases in private repositories.
 - We notify the community that a security release is coming, to give users time to prepare their systems for the update. Notifications can include Discord messages, tweets, and emails to partners and validators.
 - 24 hours following this notification, the fixes are applied publicly and new releases are issued.
-- Once releases are available for Juno, we notify the community, again, through the same channels as above. We also publish a Security Advisory on Github and publish the CVE, as long as neither the Security Advisory nor the CVE include any information on how to exploit these vulnerabilities beyond what information is already available in the patch itself.
+- Once releases are available for Furya, we notify the community, again, through the same channels as above. We also publish a Security Advisory on Github and publish the CVE, as long as neither the Security Advisory nor the CVE include any information on how to exploit these vulnerabilities beyond what information is already available in the patch itself.
 - Once the community is notified, we will pay out any relevant bug bounties to submitters.
 - One week after the releases go out, we will publish a post with further details on the vulnerability as well as our response to it.
 
-This process can take some time. Every effort will be made to handle the bug in as timely a manner as possible. However, it's important that we follow the process described above to ensure that disclosures are handled consistently and to keep Juno and the projects running on it secure.
+This process can take some time. Every effort will be made to handle the bug in as timely a manner as possible. However, it's important that we follow the process described above to ensure that disclosures are handled consistently and to keep Furya and the projects running on it secure.

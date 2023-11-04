@@ -14,7 +14,7 @@ import (
 
 const stateSyncSnapshotInterval = 10
 
-func TestJunoStateSync(t *testing.T) {
+func TestFuryaStateSync(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping in short mode")
 	}

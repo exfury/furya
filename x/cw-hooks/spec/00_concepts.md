@@ -2,7 +2,7 @@
 
 ## CW-Hooks
 
-The CW-Hooks module (CosmWasm Hooks) is an event based module which allowed developers to subscribe to wallet specific actions on Juno. This allows developers to write applications which need to following staking or governance actions for any account who performs them.
+The CW-Hooks module (CosmWasm Hooks) is an event based module which allowed developers to subscribe to wallet specific actions on Furya. This allows developers to write applications which need to following staking or governance actions for any account who performs them.
 
 Some Examples could include:
 

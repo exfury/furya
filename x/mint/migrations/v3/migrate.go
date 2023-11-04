@@ -6,7 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/juno/v18/x/mint/types"
+	"github.com/CosmosContracts/furya/v18/x/mint/types"
 )
 
 const (
@@ -25,7 +25,7 @@ func Migrate(
 	cdc codec.BinaryCodec,
 	bondDenom string,
 ) error {
-	// https://juno-api.reece.sh/cosmos/mint/v1beta1/params
+	// https://furya-api.reece.sh/cosmos/mint/v1beta1/params
 	currParams := types.Params{
 		MintDenom:     bondDenom,
 		BlocksPerYear: 5048093,

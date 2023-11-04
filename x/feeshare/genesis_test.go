@@ -10,9 +10,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/juno/v18/app"
-	"github.com/CosmosContracts/juno/v18/x/feeshare"
-	"github.com/CosmosContracts/juno/v18/x/feeshare/types"
+	"github.com/CosmosContracts/furya/v18/app"
+	"github.com/CosmosContracts/furya/v18/x/feeshare"
+	"github.com/CosmosContracts/furya/v18/x/feeshare/types"
 )
 
 type GenesisTestSuite struct {
@@ -57,7 +57,7 @@ func (suite *GenesisTestSuite) TestFeeShareInitGenesis() {
 				Params: types.Params{
 					EnableFeeShare:  false,
 					DeveloperShares: types.DefaultDeveloperShares,
-					AllowedDenoms:   []string{"ujuno"},
+					AllowedDenoms:   []string{"ufury"},
 				},
 			},
 			false,
@@ -68,7 +68,7 @@ func (suite *GenesisTestSuite) TestFeeShareInitGenesis() {
 				Params: types.Params{
 					EnableFeeShare:  true,
 					DeveloperShares: sdk.NewDecWithPrec(0, 2),
-					AllowedDenoms:   []string{"ujuno"},
+					AllowedDenoms:   []string{"ufury"},
 				},
 			},
 			false,
@@ -79,7 +79,7 @@ func (suite *GenesisTestSuite) TestFeeShareInitGenesis() {
 				Params: types.Params{
 					EnableFeeShare:  true,
 					DeveloperShares: sdk.NewDecWithPrec(100, 2),
-					AllowedDenoms:   []string{"ujuno"},
+					AllowedDenoms:   []string{"ufury"},
 				},
 			},
 			false,

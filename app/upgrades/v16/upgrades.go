@@ -30,13 +30,13 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/CosmosContracts/juno/v18/app/keepers"
-	"github.com/CosmosContracts/juno/v18/app/upgrades"
-	// Juno modules
-	feesharetypes "github.com/CosmosContracts/juno/v18/x/feeshare/types"
-	globalfeetypes "github.com/CosmosContracts/juno/v18/x/globalfee/types"
-	minttypes "github.com/CosmosContracts/juno/v18/x/mint/types"
-	tokenfactorytypes "github.com/CosmosContracts/juno/v18/x/tokenfactory/types"
+	"github.com/CosmosContracts/furya/v18/app/keepers"
+	"github.com/CosmosContracts/furya/v18/app/upgrades"
+	// Furya modules
+	feesharetypes "github.com/CosmosContracts/furya/v18/x/feeshare/types"
+	globalfeetypes "github.com/CosmosContracts/furya/v18/x/globalfee/types"
+	minttypes "github.com/CosmosContracts/furya/v18/x/mint/types"
+	tokenfactorytypes "github.com/CosmosContracts/furya/v18/x/tokenfactory/types"
 )
 
 func CreateV16UpgradeHandler(
@@ -92,7 +92,7 @@ func CreateV16UpgradeHandler(
 				// already SDK v47
 				continue
 
-			// juno modules
+			// furya modules
 			case feesharetypes.ModuleName:
 				keyTable = feesharetypes.ParamKeyTable() //nolint:staticcheck
 			case tokenfactorytypes.ModuleName:

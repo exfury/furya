@@ -1,4 +1,4 @@
 #!/bin/sh
 
-./setup_junod.sh "$@"
-./run_junod.sh
+./setup_furyad.sh "$@"
+./run_furyad.sh

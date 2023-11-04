@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	helpers "github.com/CosmosContracts/juno/tests/interchaintest/helpers"
-	globalfeetypes "github.com/CosmosContracts/juno/v18/x/globalfee/types"
+	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
+	globalfeetypes "github.com/CosmosContracts/furya/v18/x/globalfee/types"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	cosmosproto "github.com/cosmos/gogoproto/proto"
@@ -17,12 +17,12 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-// TestJunoGlobalFee
-func TestJunoGlobalFee(t *testing.T) {
+// TestFuryaGlobalFee
+func TestFuryaGlobalFee(t *testing.T) {
 	t.Parallel()
 
-	cfg := junoConfig
-	cfg.GasPrices = "0.003ujuno" // this is used in the faucet cmd, must match initial globalfee
+	cfg := furyaConfig
+	cfg.GasPrices = "0.003ufury" // this is used in the faucet cmd, must match initial globalfee
 	cfg.GasAdjustment = 2.5
 
 	// 0.002500000000000000
@@ -39,47 +39,47 @@ func TestJunoGlobalFee(t *testing.T) {
 	ic, ctx, _, _ := BuildInitialChain(t, chains)
 
 	// Chains
-	juno := chains[0].(*cosmos.CosmosChain)
+	furya := chains[0].(*cosmos.CosmosChain)
 
-	nativeDenom := juno.Config().Denom
+	nativeDenom := furya.Config().Denom
 
 	// Users
 	initFunds := int64(10_000_000_000)
-	users := interchaintest.GetAndFundTestUsers(t, ctx, "default", initFunds, juno, juno)
+	users := interchaintest.GetAndFundTestUsers(t, ctx, "default", initFunds, furya, furya)
 	sender := users[0]
 	receiver := users[1].FormattedAddress()
 
 	// fail: send 1 token to the receiver, no fee provided.
-	std := bankSendWithFees(t, ctx, juno, sender, receiver, "1"+nativeDenom, "0"+nativeDenom, 200000)
+	std := bankSendWithFees(t, ctx, furya, sender, receiver, "1"+nativeDenom, "0"+nativeDenom, 200000)
 	require.Contains(t, std, "no fees were specified")
 
 	// fail: not enough fees
-	std = bankSendWithFees(t, ctx, juno, sender, receiver, "1"+nativeDenom, "1"+nativeDenom, 200000)
+	std = bankSendWithFees(t, ctx, furya, sender, receiver, "1"+nativeDenom, "1"+nativeDenom, 200000)
 	require.Contains(t, std, "insufficient fees")
 
 	// fail: wrong fee token
-	std = bankSendWithFees(t, ctx, juno, sender, receiver, "1"+nativeDenom, "1NOTATOKEN", 200000)
+	std = bankSendWithFees(t, ctx, furya, sender, receiver, "1"+nativeDenom, "1NOTATOKEN", 200000)
 	require.Contains(t, std, "fee denom is not accepted")
 
 	// success: send with enough fee (200k gas * 0.003 = 600)
-	std = bankSendWithFees(t, ctx, juno, sender, receiver, "2"+nativeDenom, "600"+nativeDenom, 200000)
+	std = bankSendWithFees(t, ctx, furya, sender, receiver, "2"+nativeDenom, "600"+nativeDenom, 200000)
 	require.Contains(t, std, "raw_log: '[]'")
 	require.Contains(t, std, "code: 0")
 
-	afterBal, err := juno.GetBalance(ctx, receiver, nativeDenom)
+	afterBal, err := furya.GetBalance(ctx, receiver, nativeDenom)
 	require.NoError(t, err)
 	require.Equal(t, initFunds+2, afterBal.Int64())
 
 	// param change proposal (lower fee), then validate it still works
-	propID := submitGlobalFeeParamChangeProposal(t, ctx, juno, sender)
-	helpers.ValidatorVote(t, ctx, juno, propID, 25)
+	propID := submitGlobalFeeParamChangeProposal(t, ctx, furya, sender)
+	helpers.ValidatorVote(t, ctx, furya, propID, 25)
 
-	// success: validate the new value is in effect (200k gas * 0.005 = 200ujuno)
-	std = bankSendWithFees(t, ctx, juno, sender, receiver, "3"+nativeDenom, "1000"+nativeDenom, 200000)
+	// success: validate the new value is in effect (200k gas * 0.005 = 200ufury)
+	std = bankSendWithFees(t, ctx, furya, sender, receiver, "3"+nativeDenom, "1000"+nativeDenom, 200000)
 	require.Contains(t, std, "raw_log: '[]'")
 	require.Contains(t, std, "code: 0")
 
-	afterBal, err = juno.GetBalance(ctx, receiver, nativeDenom)
+	afterBal, err = furya.GetBalance(ctx, receiver, nativeDenom)
 	require.NoError(t, err)
 	require.Equal(t, initFunds+2+3, afterBal.Int64())
 
@@ -89,7 +89,7 @@ func TestJunoGlobalFee(t *testing.T) {
 }
 
 func bankSendWithFees(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, from ibc.Wallet, toAddr, coins, feeCoin string, gasAmt int64) string {
-	cmd := []string{"junod", "tx", "bank", "send", from.KeyName(), toAddr, coins,
+	cmd := []string{"furyad", "tx", "bank", "send", from.KeyName(), toAddr, coins,
 		"--node", chain.GetRPCAddress(),
 		"--home", chain.HomeDir(),
 		"--chain-id", chain.Config().ChainID,
@@ -114,10 +114,10 @@ func bankSendWithFees(t *testing.T, ctx context.Context, chain *cosmos.CosmosCha
 func submitGlobalFeeParamChangeProposal(t *testing.T, ctx context.Context, chain *cosmos.CosmosChain, user ibc.Wallet) string {
 	upgradeMsg := []cosmosproto.Message{
 		&globalfeetypes.MsgUpdateParams{
-			Authority: "juno10d07y265gmmuvt4z0w9aw880jnsr700jvss730",
+			Authority: "furya10d07y265gmmuvt4z0w9aw880jnsr700jvss730",
 			Params: globalfeetypes.Params{
 				MinimumGasPrices: sdk.DecCoins{
-					// 0.005ujuno
+					// 0.005ufury
 					sdk.NewDecCoinFromDec(chain.Config().Denom, sdk.NewDecWithPrec(5, 3)),
 				},
 			},

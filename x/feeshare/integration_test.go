@@ -19,12 +19,12 @@ import (
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	junoapp "github.com/CosmosContracts/juno/v18/app"
-	"github.com/CosmosContracts/juno/v18/x/mint/types"
+	furyaapp "github.com/CosmosContracts/furya/v18/app"
+	"github.com/CosmosContracts/furya/v18/x/mint/types"
 )
 
 // returns context and an app with updated mint keeper
-func CreateTestApp(t *testing.T, isCheckTx bool) (*junoapp.App, sdk.Context) {
+func CreateTestApp(t *testing.T, isCheckTx bool) (*furyaapp.App, sdk.Context) {
 	app := Setup(t, isCheckTx)
 
 	ctx := app.BaseApp.NewContext(isCheckTx, tmproto.Header{
@@ -38,7 +38,7 @@ func CreateTestApp(t *testing.T, isCheckTx bool) (*junoapp.App, sdk.Context) {
 	return app, ctx
 }
 
-func Setup(t *testing.T, isCheckTx bool) *junoapp.App {
+func Setup(t *testing.T, isCheckTx bool) *furyaapp.App {
 	app, genesisState := GenApp(t, !isCheckTx)
 	if !isCheckTx {
 		// init chain must be called to stop deliverState from being nil
@@ -52,7 +52,7 @@ func Setup(t *testing.T, isCheckTx bool) *junoapp.App {
 			abci.RequestInitChain{
 				Validators: []abci.ValidatorUpdate{},
 				// ConsensusParams: &tmproto.ConsensusParams{},
-				ConsensusParams: junoapp.DefaultConsensusParams,
+				ConsensusParams: furyaapp.DefaultConsensusParams,
 				AppStateBytes:   stateBytes,
 				ChainId:         "testing",
 			},
@@ -62,7 +62,7 @@ func Setup(t *testing.T, isCheckTx bool) *junoapp.App {
 	return app
 }
 
-func GenApp(t *testing.T, withGenesis bool, opts ...wasmkeeper.Option) (*junoapp.App, junoapp.GenesisState) {
+func GenApp(t *testing.T, withGenesis bool, opts ...wasmkeeper.Option) (*furyaapp.App, furyaapp.GenesisState) {
 	db := dbm.NewMemDB()
 	nodeHome := t.TempDir()
 	snapshotDir := filepath.Join(nodeHome, "data", "snapshots")
@@ -73,7 +73,7 @@ func GenApp(t *testing.T, withGenesis bool, opts ...wasmkeeper.Option) (*junoapp
 	snapshotStore, err := snapshots.NewStore(snapshotDB, snapshotDir)
 	require.NoError(t, err)
 
-	app := junoapp.New(
+	app := furyaapp.New(
 		log.NewNopLogger(),
 		db,
 		nil,
@@ -85,8 +85,8 @@ func GenApp(t *testing.T, withGenesis bool, opts ...wasmkeeper.Option) (*junoapp
 	)
 
 	if withGenesis {
-		return app, junoapp.NewDefaultGenesisState(app.AppCodec())
+		return app, furyaapp.NewDefaultGenesisState(app.AppCodec())
 	}
 
-	return app, junoapp.GenesisState{}
+	return app, furyaapp.GenesisState{}
 }

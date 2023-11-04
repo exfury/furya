@@ -7,7 +7,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/juno/v18/x/drip/types"
+	"github.com/CosmosContracts/furya/v18/x/drip/types"
 )
 
 type MsgsTestSuite struct {
@@ -20,7 +20,7 @@ func TestMsgsTestSuite(t *testing.T) {
 }
 
 func (suite *MsgsTestSuite) SetupTest() {
-	suite.govModule = "juno10d07y265gmmuvt4z0w9aw880jnsr700jvss730"
+	suite.govModule = "furya10d07y265gmmuvt4z0w9aw880jnsr700jvss730"
 }
 
 func (suite *MsgsTestSuite) TestMsgUpdateParams() {

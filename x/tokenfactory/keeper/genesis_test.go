@@ -4,28 +4,28 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	"github.com/CosmosContracts/juno/v18/x/tokenfactory/types"
+	"github.com/CosmosContracts/furya/v18/x/tokenfactory/types"
 )
 
 func (suite *KeeperTestSuite) TestGenesis() {
 	genesisState := types.GenesisState{
 		FactoryDenoms: []types.GenesisDenom{
 			{
-				Denom: "factory/juno1t7egva48prqmzl59x5ngv4zx0dtrwewcmjwfym/bitcoin",
+				Denom: "factory/furya1t7egva48prqmzl59x5ngv4zx0dtrwewcmjwfym/bitcoin",
 				AuthorityMetadata: types.DenomAuthorityMetadata{
-					Admin: "juno1t7egva48prqmzl59x5ngv4zx0dtrwewcmjwfym",
+					Admin: "furya1t7egva48prqmzl59x5ngv4zx0dtrwewcmjwfym",
 				},
 			},
 			{
-				Denom: "factory/juno1t7egva48prqmzl59x5ngv4zx0dtrwewcmjwfym/diff-admin",
+				Denom: "factory/furya1t7egva48prqmzl59x5ngv4zx0dtrwewcmjwfym/diff-admin",
 				AuthorityMetadata: types.DenomAuthorityMetadata{
-					Admin: "juno15czt5nhlnvayqq37xun9s9yus0d6y26dsvkcna",
+					Admin: "furya15czt5nhlnvayqq37xun9s9yus0d6y26dsvkcna",
 				},
 			},
 			{
-				Denom: "factory/juno1t7egva48prqmzl59x5ngv4zx0dtrwewcmjwfym/litecoin",
+				Denom: "factory/furya1t7egva48prqmzl59x5ngv4zx0dtrwewcmjwfym/litecoin",
 				AuthorityMetadata: types.DenomAuthorityMetadata{
-					Admin: "juno1t7egva48prqmzl59x5ngv4zx0dtrwewcmjwfym",
+					Admin: "furya1t7egva48prqmzl59x5ngv4zx0dtrwewcmjwfym",
 				},
 			},
 		},

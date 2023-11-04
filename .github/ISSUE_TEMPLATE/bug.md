@@ -8,7 +8,7 @@ assignees: ''
 
 #### Specifications
 
-Juno version: `Junod version`
+Furya version: `Furyad version`
 OS & Version: Windows/Linux/OSX
 Commit hash: 
 

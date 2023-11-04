@@ -14,20 +14,20 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/CosmosContracts/juno/v18/app/keepers"
-	"github.com/CosmosContracts/juno/v18/app/upgrades"
-	clocktypes "github.com/CosmosContracts/juno/v18/x/clock/types"
-	driptypes "github.com/CosmosContracts/juno/v18/x/drip/types"
+	"github.com/CosmosContracts/furya/v18/app/keepers"
+	"github.com/CosmosContracts/furya/v18/app/upgrades"
+	clocktypes "github.com/CosmosContracts/furya/v18/x/clock/types"
+	driptypes "github.com/CosmosContracts/furya/v18/x/drip/types"
 )
 
 // Verify the following with:
 // - https://daodao.zone/dao/<ADDRESS>
 var subDaos = []string{
-	"juno1j6glql3xmrcnga0gytecsucq3kd88jexxamxg3yn2xnqhunyvflqr7lxx3", // core-1
-	"juno1q7ufzamrmwfw4w35azzkcxd5l44vy8zngm9ufcgryk2dt8clqznsp88lhd", // HackJuno
-	"juno1xz54y0ktew0dcm00f9vjw0p7x29pa4j5p9rwq6zerkytugzg27qs4shxnt", // Growth Fund
-	"juno1rw92sps9q4mm7ll3x9apnunlckchmn3v7cttchsf48dcdyajzj2sajfxcn", // Delegations
-	"juno15zw5zt2pepx8n8675dz3k3yscdu94d24yhqqz00uzyx7ydf2vfmswz6nzw", // Communications
+	"furya1j6glql3xmrcnga0gytecsucq3kd88jexxamxg3yn2xnqhunyvflqr7lxx3", // core-1
+	"furya1q7ufzamrmwfw4w35azzkcxd5l44vy8zngm9ufcgryk2dt8clqznsp88lhd", // HackFurya
+	"furya1xz54y0ktew0dcm00f9vjw0p7x29pa4j5p9rwq6zerkytugzg27qs4shxnt", // Growth Fund
+	"furya1rw92sps9q4mm7ll3x9apnunlckchmn3v7cttchsf48dcdyajzj2sajfxcn", // Delegations
+	"furya15zw5zt2pepx8n8675dz3k3yscdu94d24yhqqz00uzyx7ydf2vfmswz6nzw", // Communications
 }
 
 func CreateV17UpgradeHandler(
@@ -79,7 +79,7 @@ func CreateV17UpgradeHandler(
 
 		// This function migrates all DAOs owned by the chain from the distribution module address -> the gov module.
 		// While the chain still owns it, technically it makes more sense to store them in the gov account.
-		if ctx.ChainID() == "juno-1" {
+		if ctx.ChainID() == "furya-1" {
 			if err := migrateChainOwnedSubDaos(ctx, logger, keepers.AccountKeeper, keepers.ContractKeeper); err != nil {
 				return nil, err
 			}

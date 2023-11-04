@@ -1,11 +1,11 @@
 package ante
 
-// Used for the Juno ante handler so we can properly send 50% of fees to dAPP developers via fee share module
+// Used for the Furya ante handler so we can properly send 50% of fees to dAPP developers via fee share module
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	revtypes "github.com/CosmosContracts/juno/v18/x/feeshare/types"
+	revtypes "github.com/CosmosContracts/furya/v18/x/feeshare/types"
 )
 
 type BankKeeper interface {
