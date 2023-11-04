@@ -2,7 +2,7 @@ syntax = "proto3";
 package furya.drip.v1;
 
 import "gogoproto/gogo.proto";
-option go_package = "github.com/CosmosContracts/furya/x/drip/types";
+option go_package = "github.com/exfury/furya/x/drip/types";
 
 // GenesisState defines the module's genesis state.
 message GenesisState {

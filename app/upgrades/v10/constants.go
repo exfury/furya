@@ -6,7 +6,7 @@ import (
 
 	store "github.com/cosmos/cosmos-sdk/store/types"
 
-	"github.com/CosmosContracts/furya/v18/app/upgrades"
+	"github.com/exfury/furya/v18/app/upgrades"
 )
 
 // UpgradeName defines the on-chain upgrade name for the Furya v10 upgrade.

@@ -9,7 +9,7 @@ import (
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
 	"github.com/stretchr/testify/assert"
 
-	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
+	helpers "github.com/exfury/furya/tests/interchaintest/helpers"
 )
 
 // TestFuryaBurnModule ensures the furyaburn module register and execute sharing functions work properly on smart contracts.

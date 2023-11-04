@@ -5,7 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "furya/mint/mint.proto";
 
-option go_package = "github.com/CosmosContracts/furya/x/mint/types";
+option go_package = "github.com/exfury/furya/x/mint/types";
 
 // Query provides defines the gRPC querier service.
 service Query {

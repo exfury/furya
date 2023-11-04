@@ -11,9 +11,9 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
-	feepayhelpers "github.com/CosmosContracts/furya/v18/x/feepay/helpers"
-	feepaykeeper "github.com/CosmosContracts/furya/v18/x/feepay/keeper"
-	globalfeekeeper "github.com/CosmosContracts/furya/v18/x/globalfee/keeper"
+	feepayhelpers "github.com/exfury/furya/v18/x/feepay/helpers"
+	feepaykeeper "github.com/exfury/furya/v18/x/feepay/keeper"
+	globalfeekeeper "github.com/exfury/furya/v18/x/globalfee/keeper"
 )
 
 // FeeWithBypassDecorator checks if the transaction's fee is at least as large

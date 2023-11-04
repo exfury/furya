@@ -1,7 +1,7 @@
 syntax = "proto3";
 package furya.mint;
 
-option go_package = "github.com/CosmosContracts/furya/x/mint/types";
+option go_package = "github.com/exfury/furya/x/mint/types";
 
 import "cosmos/msg/v1/msg.proto";
 import "furya/mint/mint.proto";

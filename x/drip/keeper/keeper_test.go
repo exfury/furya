@@ -12,9 +12,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 
-	"github.com/CosmosContracts/furya/v18/app"
-	"github.com/CosmosContracts/furya/v18/x/drip/keeper"
-	"github.com/CosmosContracts/furya/v18/x/drip/types"
+	"github.com/exfury/furya/v18/app"
+	"github.com/exfury/furya/v18/x/drip/keeper"
+	"github.com/exfury/furya/v18/x/drip/types"
 )
 
 type IntegrationTestSuite struct {

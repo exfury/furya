@@ -13,11 +13,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/CosmosContracts/furya/v18/app/keepers"
-	"github.com/CosmosContracts/furya/v18/app/upgrades"
+	"github.com/exfury/furya/v18/app/keepers"
+	"github.com/exfury/furya/v18/app/upgrades"
 	// types
-	feesharetypes "github.com/CosmosContracts/furya/v18/x/feeshare/types"
-	tokenfactorytypes "github.com/CosmosContracts/furya/v18/x/tokenfactory/types"
+	feesharetypes "github.com/exfury/furya/v18/x/feeshare/types"
+	tokenfactorytypes "github.com/exfury/furya/v18/x/tokenfactory/types"
 )
 
 func CreateV13UpgradeHandler(
@@ -33,7 +33,7 @@ func CreateV13UpgradeHandler(
 		nativeDenom := upgrades.GetChainsDenomToken(ctx.ChainID())
 		logger.Info(fmt.Sprintf("With native denom %s", nativeDenom))
 
-		// ICA - https://github.com/CosmosContracts/furya/blob/integrate_ica_changes/app/app.go#L846-L885
+		// ICA - https://github.com/exfury/furya/blob/integrate_ica_changes/app/app.go#L846-L885
 		// vm[icatypes.ModuleName] = mm.Modules[icatypes.ModuleName].ConsensusVersion()
 		logger.Info("upgraded icatypes version")
 

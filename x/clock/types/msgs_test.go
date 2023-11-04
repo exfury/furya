@@ -7,7 +7,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/furya/v18/x/drip/types"
+	"github.com/exfury/furya/v18/x/drip/types"
 )
 
 type MsgsTestSuite struct {

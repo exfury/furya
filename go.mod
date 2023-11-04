@@ -1,4 +1,4 @@
-module github.com/CosmosContracts/furya/v18
+module github.com/exfury/furya/v18
 
 go 1.21
 

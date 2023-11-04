@@ -10,8 +10,8 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
 
-	appparams "github.com/CosmosContracts/furya/v18/app/params"
-	"github.com/CosmosContracts/furya/v18/x/tokenfactory/types"
+	appparams "github.com/exfury/furya/v18/app/params"
+	"github.com/exfury/furya/v18/x/tokenfactory/types"
 )
 
 // Simulation operation weights constants

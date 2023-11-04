@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	clocktypes "github.com/CosmosContracts/furya/v18/x/clock/types"
+	clocktypes "github.com/exfury/furya/v18/x/clock/types"
 	cosmosproto "github.com/cosmos/gogoproto/proto"
 	"github.com/strangelove-ventures/interchaintest/v7"
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
@@ -13,7 +13,7 @@ import (
 	"github.com/strangelove-ventures/interchaintest/v7/testutil"
 	"github.com/stretchr/testify/require"
 
-	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
+	helpers "github.com/exfury/furya/tests/interchaintest/helpers"
 )
 
 // TestFuryaClock ensures the clock module auto executes allowed contracts.

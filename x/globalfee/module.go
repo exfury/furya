@@ -19,9 +19,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/CosmosContracts/furya/v18/x/globalfee/client/cli"
-	"github.com/CosmosContracts/furya/v18/x/globalfee/keeper"
-	"github.com/CosmosContracts/furya/v18/x/globalfee/types"
+	"github.com/exfury/furya/v18/x/globalfee/client/cli"
+	"github.com/exfury/furya/v18/x/globalfee/keeper"
+	"github.com/exfury/furya/v18/x/globalfee/types"
 )
 
 var (

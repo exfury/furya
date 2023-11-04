@@ -8,8 +8,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	globalfeekeeper "github.com/CosmosContracts/furya/v18/x/globalfee/keeper"
-	"github.com/CosmosContracts/furya/v18/x/globalfee/types"
+	globalfeekeeper "github.com/exfury/furya/v18/x/globalfee/keeper"
+	"github.com/exfury/furya/v18/x/globalfee/types"
 )
 
 func TestQueryMinimumGasPrices(t *testing.T) {

@@ -3,8 +3,8 @@ package feeshare
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/furya/v18/x/feeshare/keeper"
-	"github.com/CosmosContracts/furya/v18/x/feeshare/types"
+	"github.com/exfury/furya/v18/x/feeshare/keeper"
+	"github.com/exfury/furya/v18/x/feeshare/types"
 )
 
 // InitGenesis import module genesis

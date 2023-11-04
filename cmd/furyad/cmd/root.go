@@ -37,8 +37,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/crisis"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 
-	"github.com/CosmosContracts/furya/v18/app"
-	"github.com/CosmosContracts/furya/v18/app/params"
+	"github.com/exfury/furya/v18/app"
+	"github.com/exfury/furya/v18/app/params"
 )
 
 // NewRootCmd creates a new root command for furyad. It is called once in the

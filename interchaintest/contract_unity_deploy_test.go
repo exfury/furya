@@ -7,11 +7,11 @@ import (
 	"github.com/strangelove-ventures/interchaintest/v7"
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
 
-	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
+	helpers "github.com/exfury/furya/tests/interchaintest/helpers"
 )
 
 // TestFuryaUnityContractDeploy test to ensure the contract withdraw function works as expected on chain.
-// - https://github.com/CosmosContracts/cw-unity-prop
+// - https://github.com/exfury/cw-unity-prop
 func TestFuryaUnityContractDeploy(t *testing.T) {
 	t.Parallel()
 

@@ -14,4 +14,4 @@ furyad tx drip distribute-tokens 100000tf/yourcontract/yourtoken
 
 Only native tokens and the ones made with tokenfactory are allowed. 
 
-If you have a CW-20 token, you can wrap it to native using [https://github.com/CosmosContracts/tokenfactory-contracts/tree/main/contracts/migrate](this contract). 
+If you have a CW-20 token, you can wrap it to native using [https://github.com/exfury/tokenfactory-contracts/tree/main/contracts/migrate](this contract). 

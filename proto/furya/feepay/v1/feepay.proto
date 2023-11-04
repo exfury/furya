@@ -1,7 +1,7 @@
 syntax = "proto3";
 package furya.feepay.v1;
 
-option go_package = "github.com/CosmosContracts/furya/x/feepay/types";
+option go_package = "github.com/exfury/furya/x/feepay/types";
 
 // This defines the address, balance, and wallet limit
 // of a fee pay contract.

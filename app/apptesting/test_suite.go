@@ -34,8 +34,8 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/CosmosContracts/furya/v18/app"
-	appparams "github.com/CosmosContracts/furya/v18/app/params"
+	"github.com/exfury/furya/v18/app"
+	appparams "github.com/exfury/furya/v18/app/params"
 )
 
 type KeeperTestHelper struct {

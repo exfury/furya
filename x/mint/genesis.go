@@ -3,8 +3,8 @@ package mint
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/furya/v18/x/mint/keeper"
-	"github.com/CosmosContracts/furya/v18/x/mint/types"
+	"github.com/exfury/furya/v18/x/mint/keeper"
+	"github.com/exfury/furya/v18/x/mint/types"
 )
 
 // InitGenesis new mint genesis

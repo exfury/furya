@@ -7,10 +7,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/CosmosContracts/furya/v18/app/keepers"
-	"github.com/CosmosContracts/furya/v18/app/upgrades"
-	cwhookstypes "github.com/CosmosContracts/furya/v18/x/cw-hooks/types"
-	feepaytypes "github.com/CosmosContracts/furya/v18/x/feepay/types"
+	"github.com/exfury/furya/v18/app/keepers"
+	"github.com/exfury/furya/v18/app/upgrades"
+	cwhookstypes "github.com/exfury/furya/v18/x/cw-hooks/types"
+	feepaytypes "github.com/exfury/furya/v18/x/feepay/types"
 )
 
 func CreateV18UpgradeHandler(

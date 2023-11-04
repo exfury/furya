@@ -18,11 +18,11 @@ import (
 	testutil "github.com/cosmos/cosmos-sdk/types/module/testutil"
 	ibclocalhost "github.com/cosmos/ibc-go/v7/modules/light-clients/09-localhost"
 
-	clocktypes "github.com/CosmosContracts/furya/v18/x/clock/types"
-	feepaytypes "github.com/CosmosContracts/furya/v18/x/feepay/types"
-	feesharetypes "github.com/CosmosContracts/furya/v18/x/feeshare/types"
-	globalfeetypes "github.com/CosmosContracts/furya/v18/x/globalfee/types"
-	tokenfactorytypes "github.com/CosmosContracts/furya/v18/x/tokenfactory/types"
+	clocktypes "github.com/exfury/furya/v18/x/clock/types"
+	feepaytypes "github.com/exfury/furya/v18/x/feepay/types"
+	feesharetypes "github.com/exfury/furya/v18/x/feeshare/types"
+	globalfeetypes "github.com/exfury/furya/v18/x/globalfee/types"
+	tokenfactorytypes "github.com/exfury/furya/v18/x/tokenfactory/types"
 )
 
 var (
@@ -30,8 +30,8 @@ var (
 	MaxDepositPeriod = "10s"
 	Denom            = "ufury"
 
-	FuryaE2ERepo  = "ghcr.io/cosmoscontracts/furya-e2e"
-	FuryaMainRepo = "ghcr.io/cosmoscontracts/furya"
+	FuryaE2ERepo  = "ghcr.io/exfury/furya-e2e"
+	FuryaMainRepo = "ghcr.io/exfury/furya"
 
 	IBCRelayerImage   = "ghcr.io/cosmos/relayer"
 	IBCRelayerVersion = "main"

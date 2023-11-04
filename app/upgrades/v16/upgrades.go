@@ -30,13 +30,13 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/CosmosContracts/furya/v18/app/keepers"
-	"github.com/CosmosContracts/furya/v18/app/upgrades"
+	"github.com/exfury/furya/v18/app/keepers"
+	"github.com/exfury/furya/v18/app/upgrades"
 	// Furya modules
-	feesharetypes "github.com/CosmosContracts/furya/v18/x/feeshare/types"
-	globalfeetypes "github.com/CosmosContracts/furya/v18/x/globalfee/types"
-	minttypes "github.com/CosmosContracts/furya/v18/x/mint/types"
-	tokenfactorytypes "github.com/CosmosContracts/furya/v18/x/tokenfactory/types"
+	feesharetypes "github.com/exfury/furya/v18/x/feeshare/types"
+	globalfeetypes "github.com/exfury/furya/v18/x/globalfee/types"
+	minttypes "github.com/exfury/furya/v18/x/mint/types"
+	tokenfactorytypes "github.com/exfury/furya/v18/x/tokenfactory/types"
 )
 
 func CreateV16UpgradeHandler(

@@ -9,7 +9,7 @@ import (
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	v1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1"
 
-	"github.com/CosmosContracts/furya/v18/x/cw-hooks/types"
+	"github.com/exfury/furya/v18/x/cw-hooks/types"
 )
 
 type GovHooks struct {

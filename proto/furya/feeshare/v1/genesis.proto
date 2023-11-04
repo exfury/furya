@@ -3,7 +3,7 @@ package furya.feeshare.v1;
 
 import "furya/feeshare/v1/feeshare.proto";
 import "gogoproto/gogo.proto";
-option go_package = "github.com/CosmosContracts/furya/x/feeshare/types";
+option go_package = "github.com/exfury/furya/x/feeshare/types";
 
 // GenesisState defines the module's genesis state.
 message GenesisState {

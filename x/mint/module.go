@@ -17,10 +17,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 
-	"github.com/CosmosContracts/furya/v18/x/mint/client/cli"
-	"github.com/CosmosContracts/furya/v18/x/mint/keeper"
-	"github.com/CosmosContracts/furya/v18/x/mint/simulation"
-	"github.com/CosmosContracts/furya/v18/x/mint/types"
+	"github.com/exfury/furya/v18/x/mint/client/cli"
+	"github.com/exfury/furya/v18/x/mint/keeper"
+	"github.com/exfury/furya/v18/x/mint/simulation"
+	"github.com/exfury/furya/v18/x/mint/types"
 )
 
 var (

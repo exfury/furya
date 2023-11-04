@@ -5,7 +5,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/CosmosContracts/furya/v18/app/keepers"
+	"github.com/exfury/furya/v18/app/keepers"
 )
 
 func CreateV12UpgradeHandler(

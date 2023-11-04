@@ -20,13 +20,13 @@ import (
 	govkeeper "github.com/cosmos/cosmos-sdk/x/gov/keeper"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
-	decorators "github.com/CosmosContracts/furya/v18/app/decorators"
-	feepayante "github.com/CosmosContracts/furya/v18/x/feepay/ante"
-	feepaykeeper "github.com/CosmosContracts/furya/v18/x/feepay/keeper"
-	feeshareante "github.com/CosmosContracts/furya/v18/x/feeshare/ante"
-	feesharekeeper "github.com/CosmosContracts/furya/v18/x/feeshare/keeper"
-	globalfeeante "github.com/CosmosContracts/furya/v18/x/globalfee/ante"
-	globalfeekeeper "github.com/CosmosContracts/furya/v18/x/globalfee/keeper"
+	decorators "github.com/exfury/furya/v18/app/decorators"
+	feepayante "github.com/exfury/furya/v18/x/feepay/ante"
+	feepaykeeper "github.com/exfury/furya/v18/x/feepay/keeper"
+	feeshareante "github.com/exfury/furya/v18/x/feeshare/ante"
+	feesharekeeper "github.com/exfury/furya/v18/x/feeshare/keeper"
+	globalfeeante "github.com/exfury/furya/v18/x/globalfee/ante"
+	globalfeekeeper "github.com/exfury/furya/v18/x/globalfee/keeper"
 )
 
 // Lower back to 1 mil after https://github.com/cosmos/relayer/issues/1255

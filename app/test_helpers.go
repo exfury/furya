@@ -32,8 +32,8 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	apphelpers "github.com/CosmosContracts/furya/v18/app/helpers"
-	appparams "github.com/CosmosContracts/furya/v18/app/params"
+	apphelpers "github.com/exfury/furya/v18/app/helpers"
+	appparams "github.com/exfury/furya/v18/app/params"
 )
 
 // SimAppChainID hardcoded chainID for simulation

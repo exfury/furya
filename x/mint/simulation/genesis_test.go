@@ -15,8 +15,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 
-	"github.com/CosmosContracts/furya/v18/x/mint/simulation"
-	"github.com/CosmosContracts/furya/v18/x/mint/types"
+	"github.com/exfury/furya/v18/x/mint/simulation"
+	"github.com/exfury/furya/v18/x/mint/types"
 )
 
 // TestRandomizedGenState tests the normal scenario of applying RandomizedGenState.

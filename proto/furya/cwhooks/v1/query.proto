@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "furya/cwhooks/v1/genesis.proto";
 
-option go_package = "github.com/CosmosContracts/furya/x/cw-hooks/types";
+option go_package = "github.com/exfury/furya/x/cw-hooks/types";
 
 // Query defines the gRPC querier service.
 service Query {

@@ -10,8 +10,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/furya/v18/app"
-	bindings "github.com/CosmosContracts/furya/v18/x/tokenfactory/bindings/types"
+	"github.com/exfury/furya/v18/app"
+	bindings "github.com/exfury/furya/v18/x/tokenfactory/bindings/types"
 )
 
 func TestQueryFullDenom(t *testing.T) {

@@ -6,7 +6,7 @@ import (
 	"github.com/strangelove-ventures/interchaintest/v7"
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
 
-	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
+	helpers "github.com/exfury/furya/tests/interchaintest/helpers"
 )
 
 // TestFuryaFeeShare ensures the feeshare module register and execute sharing functions work properly on smart contracts.

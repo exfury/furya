@@ -15,10 +15,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 
-	feepayhelpers "github.com/CosmosContracts/furya/v18/x/feepay/helpers"
-	feepaykeeper "github.com/CosmosContracts/furya/v18/x/feepay/keeper"
-	feepaytypes "github.com/CosmosContracts/furya/v18/x/feepay/types"
-	globalfeekeeper "github.com/CosmosContracts/furya/v18/x/globalfee/keeper"
+	feepayhelpers "github.com/exfury/furya/v18/x/feepay/helpers"
+	feepaykeeper "github.com/exfury/furya/v18/x/feepay/keeper"
+	feepaytypes "github.com/exfury/furya/v18/x/feepay/types"
+	globalfeekeeper "github.com/exfury/furya/v18/x/globalfee/keeper"
 )
 
 // DeductFeeDecorator deducts fees from the first signer of the tx

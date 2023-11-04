@@ -7,8 +7,8 @@ import (
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"github.com/CosmosContracts/furya/v18/app"
-	"github.com/CosmosContracts/furya/v18/cmd/furyad/cmd"
+	"github.com/exfury/furya/v18/app"
+	"github.com/exfury/furya/v18/cmd/furyad/cmd"
 )
 
 func main() {

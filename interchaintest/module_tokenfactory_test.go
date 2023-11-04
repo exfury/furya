@@ -7,7 +7,7 @@ import (
 	"github.com/strangelove-ventures/interchaintest/v7"
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
 
-	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
+	helpers "github.com/exfury/furya/tests/interchaintest/helpers"
 )
 
 // TestFuryaTokenFactory ensures the tokenfactory module & bindings work properly.

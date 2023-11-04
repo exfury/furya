@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/CosmosContracts/furya/tests/interchaintest/helpers"
+	"github.com/exfury/furya/tests/interchaintest/helpers"
 	"github.com/strangelove-ventures/interchaintest/v7/chain/cosmos"
 	"github.com/strangelove-ventures/interchaintest/v7/ibc"
 	"github.com/stretchr/testify/require"

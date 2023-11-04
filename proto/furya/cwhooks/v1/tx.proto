@@ -7,7 +7,7 @@ import "gogoproto/gogo.proto";
 import "cosmos_proto/cosmos.proto";
 import "amino/amino.proto";
 
-option go_package = "github.com/CosmosContracts/furya/x/cw-hooks/types";
+option go_package = "github.com/exfury/furya/x/cw-hooks/types";
 
 // Msg defines the Msg service.
 service Msg {

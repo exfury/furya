@@ -3,7 +3,7 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/furya/v18/x/tokenfactory/types"
+	"github.com/exfury/furya/v18/x/tokenfactory/types"
 )
 
 // InitGenesis initializes the tokenfactory module's state from a provided genesis

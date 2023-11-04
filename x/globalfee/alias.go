@@ -1,7 +1,7 @@
 package globalfee
 
 import (
-	"github.com/CosmosContracts/furya/v18/x/globalfee/types"
+	"github.com/exfury/furya/v18/x/globalfee/types"
 )
 
 const (

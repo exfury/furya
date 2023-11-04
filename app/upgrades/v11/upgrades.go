@@ -15,7 +15,7 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 
-	"github.com/CosmosContracts/furya/v18/app/keepers"
+	"github.com/exfury/furya/v18/app/keepers"
 )
 
 // CreateV11UpgradeHandler makes an upgrade handler for v11 of Furya

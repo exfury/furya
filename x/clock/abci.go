@@ -7,8 +7,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/furya/v18/x/clock/keeper"
-	"github.com/CosmosContracts/furya/v18/x/clock/types"
+	"github.com/exfury/furya/v18/x/clock/keeper"
+	"github.com/exfury/furya/v18/x/clock/types"
 )
 
 // EndBlocker executes on contracts at the end of the block.

@@ -18,9 +18,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/CosmosContracts/furya/v18/x/cw-hooks/client/cli"
-	"github.com/CosmosContracts/furya/v18/x/cw-hooks/keeper"
-	"github.com/CosmosContracts/furya/v18/x/cw-hooks/types"
+	"github.com/exfury/furya/v18/x/cw-hooks/client/cli"
+	"github.com/exfury/furya/v18/x/cw-hooks/keeper"
+	"github.com/exfury/furya/v18/x/cw-hooks/types"
 )
 
 const (

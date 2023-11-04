@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 
-	"github.com/CosmosContracts/furya/v18/x/feepay/types"
+	"github.com/exfury/furya/v18/x/feepay/types"
 )
 
 // NewQueryCmd returns the cli query commands for this module

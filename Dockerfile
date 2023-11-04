@@ -1,5 +1,5 @@
-# docker build . -t cosmoscontracts/furya:latest
-# docker run --rm -it cosmoscontracts/furya:latest /bin/sh
+# docker build . -t exfury/furya:latest
+# docker run --rm -it exfury/furya:latest /bin/sh
 FROM golang:1.21-alpine AS go-builder
 
 # this comes from standard alpine nightly file

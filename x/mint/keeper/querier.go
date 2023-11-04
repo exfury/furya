@@ -6,7 +6,7 @@ package keeper
 // import (
 // 	abci "github.com/cometbft/cometbft/abci/types"
 
-// 	"github.com/CosmosContracts/furya/v18/x/mint/types"
+// 	"github.com/exfury/furya/v18/x/mint/types"
 // 	"github.com/cosmos/cosmos-sdk/codec"
 // 	sdk "github.com/cosmos/cosmos-sdk/types"
 // 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"

@@ -1,7 +1,7 @@
 syntax = "proto3";
 package furya.clock.v1;
 
-option go_package = "github.com/CosmosContracts/furya/x/clock/types";
+option go_package = "github.com/exfury/furya/x/clock/types";
 
 import "cosmos/msg/v1/msg.proto";
 import "furya/clock/v1/genesis.proto";

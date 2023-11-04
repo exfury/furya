@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmosContracts/furya/v18/x/clock/types"
+	"github.com/exfury/furya/v18/x/clock/types"
 )
 
 var _ types.QueryServer = &Querier{}

@@ -9,9 +9,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/kv"
 
-	"github.com/CosmosContracts/furya/v18/app"
-	"github.com/CosmosContracts/furya/v18/x/mint/simulation"
-	"github.com/CosmosContracts/furya/v18/x/mint/types"
+	"github.com/exfury/furya/v18/app"
+	"github.com/exfury/furya/v18/x/mint/simulation"
+	"github.com/exfury/furya/v18/x/mint/types"
 )
 
 func TestDecodeStore(t *testing.T) {

@@ -15,9 +15,9 @@ import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	appparams "github.com/CosmosContracts/furya/v18/app/params"
-	globalfeekeeper "github.com/CosmosContracts/furya/v18/x/globalfee/keeper"
-	"github.com/CosmosContracts/furya/v18/x/globalfee/types"
+	appparams "github.com/exfury/furya/v18/app/params"
+	globalfeekeeper "github.com/exfury/furya/v18/x/globalfee/keeper"
+	"github.com/exfury/furya/v18/x/globalfee/types"
 )
 
 func TestDefaultGenesis(t *testing.T) {

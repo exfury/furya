@@ -9,7 +9,7 @@ import "cosmos/msg/v1/msg.proto";
 import "cosmos_proto/cosmos.proto";
 import "furya/drip/v1/genesis.proto";
 
-option go_package = "github.com/CosmosContracts/furya/x/drip/types";
+option go_package = "github.com/exfury/furya/x/drip/types";
 
 // Msg defines the fees Msg service.
 service Msg {

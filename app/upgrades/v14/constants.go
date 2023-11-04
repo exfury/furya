@@ -5,8 +5,8 @@ import (
 
 	store "github.com/cosmos/cosmos-sdk/store/types"
 
-	"github.com/CosmosContracts/furya/v18/app/upgrades"
-	"github.com/CosmosContracts/furya/v18/x/globalfee"
+	"github.com/exfury/furya/v18/app/upgrades"
+	"github.com/exfury/furya/v18/x/globalfee"
 )
 
 // UpgradeName defines the on-chain upgrade name for the upgrade.

@@ -3,9 +3,9 @@ package v17
 import (
 	store "github.com/cosmos/cosmos-sdk/store/types"
 
-	"github.com/CosmosContracts/furya/v18/app/upgrades"
-	clocktypes "github.com/CosmosContracts/furya/v18/x/clock/types"
-	driptypes "github.com/CosmosContracts/furya/v18/x/drip/types"
+	"github.com/exfury/furya/v18/app/upgrades"
+	clocktypes "github.com/exfury/furya/v18/x/clock/types"
+	driptypes "github.com/exfury/furya/v18/x/drip/types"
 )
 
 // UpgradeName defines the on-chain upgrade name for the upgrade.

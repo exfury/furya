@@ -19,8 +19,8 @@ import (
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	furyaapp "github.com/CosmosContracts/furya/v18/app"
-	"github.com/CosmosContracts/furya/v18/x/mint/types"
+	furyaapp "github.com/exfury/furya/v18/app"
+	"github.com/exfury/furya/v18/x/mint/types"
 )
 
 // returns context and an app with updated mint keeper

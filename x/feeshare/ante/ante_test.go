@@ -7,7 +7,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	ante "github.com/CosmosContracts/furya/v18/x/feeshare/ante"
+	ante "github.com/exfury/furya/v18/x/feeshare/ante"
 )
 
 type AnteTestSuite struct {

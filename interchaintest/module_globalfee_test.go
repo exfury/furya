@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"testing"
 
-	helpers "github.com/CosmosContracts/furya/tests/interchaintest/helpers"
-	globalfeetypes "github.com/CosmosContracts/furya/v18/x/globalfee/types"
+	helpers "github.com/exfury/furya/tests/interchaintest/helpers"
+	globalfeetypes "github.com/exfury/furya/v18/x/globalfee/types"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	cosmosproto "github.com/cosmos/gogoproto/proto"

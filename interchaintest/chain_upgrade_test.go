@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	furyaconformance "github.com/CosmosContracts/furya/tests/interchaintest/conformance"
+	furyaconformance "github.com/exfury/furya/tests/interchaintest/conformance"
 	cosmosproto "github.com/cosmos/gogoproto/proto"
 	"github.com/docker/docker/client"
 	"github.com/strangelove-ventures/interchaintest/v7"
